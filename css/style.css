@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Lapsus Pro";
-  src: url("../fonts/Lapsus_Pro-Bold-Normal.otf") format("otf");
+  src: url("../fonts/Lapsus_Pro-Bold-Normal.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -944,7 +944,8 @@ button.swiper-pagination-bullet {
   overflow: hidden;
 }
 
-.ibg img {
+.ibg img,
+.ibg svg {
   position: absolute;
   inset: 0;
   z-index: -2;
@@ -1000,8 +1001,9 @@ button.swiper-pagination-bullet {
 }
 
 body {
+  font-family: "Lapsus Pro";
   font-weight: 700;
-  font-size: 100px;
+  font-size: calc(40px + 39 * ((100vw - 360px) / 360));
   line-height: 0.85;
   letter-spacing: 0.05em;
   color: #fff;
@@ -1009,15 +1011,18 @@ body {
   overflow: hidden;
 }
 
+.no-webp body::before {
+  background-image: url("../img/images/pages/index/main/1.png");
+}
+
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url("../img/images/pages/index/main/1.webp");
   background-position: top left;
   background-repeat: repeat;
-  background-size: 35.6770833333vw 35.9895833333vw;
+  background-size: calc(370px + 371 * ((100vw - 360px) / 360)) calc(374px + 374 * ((100vw - 360px) / 360));
   opacity: 0.2;
 }
 
@@ -1026,7 +1031,7 @@ body::after {
   position: fixed;
   inset: 0;
   z-index: -2;
-  background-image: radial-gradient(115.55% 115.55% at 50% 100%, rgb(207, 233, 242) 13.5550603271%, rgb(107, 187, 245) 80.2923083305%, rgb(48, 159, 237) 100%);
+  background-image: radial-gradient(393.11% 115.55% at 111.65% 100%, rgb(209, 234, 242) 13.5550603271%, rgb(107, 187, 245) 80.2923083305%, rgb(48, 158, 237) 100%);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1050,6 +1055,123 @@ body::after {
   max-inline-size: 1920px;
   margin-inline: auto;
   padding-inline: 16px;
+}
+
+.hero {
+  position: relative;
+  min-block-size: 100svh;
+}
+
+.hero__progress {
+  position: absolute;
+  inset-block-end: 0;
+  z-index: 1;
+  font-size: calc(100px + 100 * ((100vw - 360px) / 360));
+  line-height: 1;
+  opacity: 0.5;
+}
+
+.loader {
+  position: absolute;
+  inset-block-start: calc(122px + 122 * ((100vw - 360px) / 360));
+  inset-inline-start: 50%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3px, 3px + 1 * ((100vw - 1440px) / 480), 4px);
+  align-items: center;
+  inline-size: 100%;
+  max-inline-size: calc(249px + 218 * ((100vw - 360px) / 360));
+  padding-inline: 16px;
+  transform: translateX(-50%);
+}
+
+.loader__text {
+  font-family: "Pribambas";
+  font-size: calc(15px + 15 * ((100vw - 360px) / 360));
+  letter-spacing: 1px;
+}
+
+.logo {
+  position: relative;
+  isolation: isolate;
+  flex: 0 0 auto;
+  inline-size: 100%;
+  aspect-ratio: 435/378;
+  font-size: 0;
+}
+
+.logo__background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+}
+
+.logo__background img {
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+
+.logo__item {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.logo__item svg,
+.logo__item img {
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+
+.webp body::before {
+  background-image: url(../img/images/pages/index/main/1.webp);
+}
+
+@media (min-width: 992.1px) {
+  body {
+    font-size: clamp(74px, 74px + 26 * ((100vw - 1440px) / 480), 100px);
+  }
+
+  body::before {
+    background-size: clamp(513px, 513px + 172 * ((100vw - 1440px) / 480), 685px) clamp(518px, 518px + 173 * ((100vw - 1440px) / 480), 691px);
+  }
+
+  body::after {
+    background-image: radial-gradient(115.55% 115.55% at 50% 100%, rgb(207, 233, 242) 13.5550603271%, rgb(107, 187, 245) 80.2923083305%, rgb(48, 159, 237) 100%);
+  }
+
+  .hero__progress {
+    inset-inline-end: clamp(16px, 16px + 80 * ((100vw - 1280px) / 160), 96px);
+    font-size: clamp(187px, 187px + 63 * ((100vw - 1440px) / 480), 250px);
+  }
+
+  .loader {
+    inset-block-start: clamp(75px, 75px + 25 * ((100vw - 1440px) / 480), 100px);
+    max-inline-size: clamp(445px, 445px + 138 * ((100vw - 1440px) / 480), 583px);
+  }
+
+  .loader__text {
+    font-size: clamp(22px, 22px + 8 * ((100vw - 1440px) / 480), 30px);
+  }
+
+  .logo {
+    aspect-ratio: 551/365;
+  }
+}
+
+@media (min-width: 1440.1px) {
+  .hero__progress {
+    inset-inline-end: clamp(96px, 96px + 96 * ((100vw - 1440px) / 480), 192px);
+  }
+}
+
+@media (max-width: 992px) {
+  .hero__progress {
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 @media (hover: hover) {
