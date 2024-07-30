@@ -1009,16 +1009,12 @@ body {
   overflow: hidden;
 }
 
-.no-webp body::before {
-  background-image: -webkit-image-set(url("../img/images/pages/index/main/1.webp") type("image/webp"), url("../img/images/pages/index/main/1.png") type("image/png"));
-  background-image: image-set(url("../img/images/pages/index/main/1.webp") type("image/webp"), url("../img/images/pages/index/main/1.png") type("image/png"));
-}
-
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
+  background-image: url("../img/images/pages/index/main/1.webp");
   background-position: top left;
   background-repeat: repeat;
   background-size: 35.6770833333vw 35.9895833333vw;
@@ -1054,11 +1050,6 @@ body::after {
   max-inline-size: 1920px;
   margin-inline: auto;
   padding-inline: 16px;
-}
-
-.webp body::before {
-  background-image: -webkit-image-set(url(../img/images/pages/index/main/1.webp) type("image/webp"), url(../img/images/pages/index/main/1.webp) type("image/png"));
-  background-image: image-set(url(../img/images/pages/index/main/1.webp) type("image/webp"), url(../img/images/pages/index/main/1.webp) type("image/png"));
 }
 
 @media (hover: hover) {
