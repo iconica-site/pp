@@ -93,6 +93,10 @@ body {
   line-height: 1;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 th,
 textarea,
 input,
@@ -237,6 +241,8 @@ dialog {
   block-size: 100%;
   max-block-size: none;
   overflow: auto;
+  transition-property: opacity, visibility;
+  transition-duration: 0.3s;
 }
 
 dialog:not([open]) {
@@ -993,6 +999,8 @@ button.swiper-pagination-bullet {
   background-color: var(--button-background-color);
   border: var(--button-border-width) solid var(--button-border-color, currentColor);
   border-radius: var(--button-border-radius);
+  transition-property: color, background-color, border-color, var(--button-transition-property);
+  transition-duration: 0.3s;
 }
 
 .button__icon {
@@ -1069,13 +1077,81 @@ body::after {
   font-size: calc(100px + 100 * ((100vw - 360px) / 360));
   line-height: 1;
   opacity: 0.5;
+  transition-property: transform;
+  transition-duration: 2s;
+}
+
+.loaded .hero__progress {
+  transform: translateX(200%);
+}
+
+.hero__background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transition-property: transform;
+  transition-duration: 2s;
+}
+
+body:not(.loaded) .hero__background {
+  transform: translateY(100%);
+}
+
+.hero__badge {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: -2px;
+  z-index: 1;
+  inline-size: calc(138px + 138 * ((100vw - 360px) / 360));
+  aspect-ratio: 293/299;
+  transition-property: transform;
+  transition-duration: 2s;
+}
+
+body:not(.loaded) .hero__badge {
+  transform: translate(-100%, -100%);
+}
+
+.hero__badge img {
+  -o-object-fit: contain;
+  object-fit: contain;
+}
+
+.hero__main {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  transition-property: transform;
+  transition-duration: 2s;
+}
+
+body:not(.loaded) .hero__main {
+  transform: translateY(100%);
+}
+
+.hero__grass {
+  position: absolute;
+  inset-block-end: calc(-8px + -8 * ((100vw - 360px) / 360));
+  inset-inline-start: calc(-250px + -250 * ((100vw - 360px) / 360));
+  z-index: 1;
+  inline-size: calc(1021px + 1021 * ((100vw - 360px) / 360));
+  aspect-ratio: 2432/392;
+}
+
+.hero__girl {
+  position: absolute;
+  inset-block-end: min(-8px, max(-8px + -3 * ((100vw - 1440px) / 480), -11px));
+  inset-inline-end: clamp(17px, 17px + 6 * ((100vw - 1440px) / 480), 23px);
+  z-index: 2;
+  inline-size: clamp(715px, 715px + 238 * ((100vw - 1440px) / 480), 953px);
+  aspect-ratio: 953/921;
 }
 
 .loader {
   position: absolute;
   inset-block-start: calc(122px + 122 * ((100vw - 360px) / 360));
   inset-inline-start: 50%;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   gap: clamp(3px, 3px + 1 * ((100vw - 1440px) / 480), 4px);
@@ -1090,6 +1166,12 @@ body::after {
   font-family: "Pribambas";
   font-size: calc(15px + 15 * ((100vw - 360px) / 360));
   letter-spacing: 1px;
+  transition-property: opacity;
+  transition-duration: 2s;
+}
+
+.loaded .loader__text {
+  opacity: 0;
 }
 
 .logo {
@@ -1105,6 +1187,11 @@ body::after {
   position: absolute;
   inset: 0;
   z-index: -1;
+  transition-property: opacity;
+  transition-duration: 2s;
+}
+
+body:not(.loaded) .logo__background {
   opacity: 0;
 }
 
@@ -1147,6 +1234,22 @@ body::after {
     font-size: clamp(187px, 187px + 63 * ((100vw - 1440px) / 480), 250px);
   }
 
+  .hero__background {
+    inset-block: min(-48px, max(-48px + -16 * ((100vw - 1440px) / 480), -64px)) min(-89px, max(-89px + -30 * ((100vw - 1440px) / 480), -119px));
+    inset-inline-start: clamp(-463px, -463px + 128 * ((100vw - 1024px) / 256), -335px);
+    inline-size: max(2004px, 2004px + 669 * ((100vw - 1440px) / 480));
+  }
+
+  .hero__badge {
+    inline-size: clamp(219px, 219px + 74 * ((100vw - 1440px) / 480), 293px);
+  }
+
+  .hero__grass {
+    inset-block-end: 0;
+    inset-inline-start: clamp(-122px, -122px + 127 * ((100vw - 1024px) / 256), 5px);
+    inline-size: clamp(1824px, 1824px + 608 * ((100vw - 1440px) / 480), 2432px);
+  }
+
   .loader {
     inset-block-start: clamp(75px, 75px + 25 * ((100vw - 1440px) / 480), 100px);
     max-inline-size: clamp(445px, 445px + 138 * ((100vw - 1440px) / 480), 583px);
@@ -1161,9 +1264,27 @@ body::after {
   }
 }
 
+@media (min-width: 1280.1px) {
+  .hero__background {
+    inset-inline-start: clamp(-335px, -335px + 80 * ((100vw - 1280px) / 160), -255px);
+  }
+
+  .hero__grass {
+    inset-inline-start: clamp(5px, 5px + 80 * ((100vw - 1280px) / 160), 85px);
+  }
+}
+
 @media (min-width: 1440.1px) {
   .hero__progress {
     inset-inline-end: clamp(96px, 96px + 96 * ((100vw - 1440px) / 480), 192px);
+  }
+
+  .hero__background {
+    inset-inline-start: min(-255px, -255px + -85 * ((100vw - 1440px) / 480));
+  }
+
+  .hero__grass {
+    inset-inline-start: clamp(85px, 85px + 29 * ((100vw - 1440px) / 480), 114px);
   }
 }
 
@@ -1183,21 +1304,5 @@ body::after {
     --button-color: var(--button-color-hover);
     --button-background-color: var(--button-background-color-hover);
     --button-border-color: var(--button-border-color-hover);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
-
-  dialog {
-    transition-property: opacity, visibility;
-    transition-duration: 0.3s;
-  }
-
-  .button {
-    transition-property: color, background-color, border-color, var(--button-transition-property);
-    transition-duration: 0.3s;
   }
 }

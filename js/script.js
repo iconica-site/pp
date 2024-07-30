@@ -9,6 +9,8 @@ window.__jr__ = {
 };
 
 ;// CONCATENATED MODULE: ./src/js/scripts/scripts/progress.js
+const { body } = document;
+
 function progress() {
   /** @type {HTMLSpanElement} */
   const progressNumbers = document.querySelector(".hero__progress span");
@@ -22,6 +24,8 @@ function progress() {
 
         if (number !== 100) {
           updateProgress(number + 1);
+        } else {
+          body.classList.add("loaded");
         }
       }, Math.random() * 50);
     }
