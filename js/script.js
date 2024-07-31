@@ -41,7 +41,68 @@ window.addEventListener("load", () => {
   progress();
 });
 
+;// CONCATENATED MODULE: ./src/js/scripts/scripts/move.js
+const { body: move_body } = document;
+const { style } = move_body;
+
+let bodyInlineCenter, bodyBlockCenter, durationTimeout;
+
+observe();
+
+move_body.addEventListener("mouseenter", () => {
+  setDuration(100);
+});
+
+move_body.addEventListener("mouseleave", () => {
+  removePosition();
+});
+
+function observe() {
+  const bodyResizeObserver = new ResizeObserver(entries => {
+    entries.forEach(entry => {
+      const { borderBoxSize } = entry;
+      const { inlineSize, blockSize } = borderBoxSize[0];
+
+      [bodyInlineCenter, bodyBlockCenter] = [inlineSize / 2, blockSize / 2];
+    });
+  });
+
+  bodyResizeObserver.observe(move_body);
+
+  move_body.addEventListener("mousemove", mousemove);
+}
+
+function mousemove(event) {
+  const { clientX, clientY } = event;
+
+  const x = (clientX - bodyInlineCenter) / bodyInlineCenter * 100;
+  const y = (bodyBlockCenter - clientY) / bodyBlockCenter * 100;
+
+  style.setProperty("--x", x);
+  style.setProperty("--y", y);
+}
+
+function removePosition() {
+  setDuration();
+
+  style.removeProperty("--rotate-x");
+  style.removeProperty("--rotate-y");
+}
+
+function setDuration(duration = 1000) {
+  style.setProperty("--duration", `${duration}ms`);
+
+  if (durationTimeout) clearTimeout(durationTimeout);
+
+  durationTimeout = setTimeout(removeDuration, duration);
+}
+
+function removeDuration() {
+  style.removeProperty("--duration");
+}
+
 ;// CONCATENATED MODULE: ./src/js/scripts/scripts.js
+
 
 
 ;// CONCATENATED MODULE: ./src/js/script.js
