@@ -3258,7 +3258,10 @@ const MIN_993_PX = window.matchMedia("(min-width: 992.1px)");
 const sliderArrows = document.querySelector(".slider-arrows");
 const heroBlock = document.querySelector(".hero");
 const choiceBlock = document.querySelector(".choice");
-const choicesImages = document.querySelector(".choices-images");
+const choicesBlockImages = document.querySelector(".choices-images");
+const compoundBlock = document.querySelector(".compound");
+const easeBlock = document.querySelector(".ease");
+const easeBlockImages = document.querySelector(".ease-images");
 
 function initCustomScroll() {
   const locomotive = new locomotive_scroll_esm({
@@ -3267,7 +3270,7 @@ function initCustomScroll() {
     direction: "vertical",
     reloadOnContextChange: true,
     repeat: true,
-    lerp: MIN_993_PX.matches ? 0.05 : 0.1,
+    // lerp: MIN_993_PX.matches ? 0.05 : 0.1,
     smartphone: {
       smooth: true,
       direction: "vertical",
@@ -3286,8 +3289,14 @@ function initCustomScroll() {
     setProperty(heroBlock, "--translate-y", choiceBlock, 0, 100);
     setProperty(heroBlock, "--opacity", choiceBlock, 1, 0);
     setProperty(choiceBlock, "--opacity", choiceBlock, 0, 1);
-    setProperty(choicesImages, "--translate-y", choiceBlock, 100, 0);
-    setProperty(choicesImages, "--opacity", choiceBlock, 0, 1);
+    setProperty(choicesBlockImages, "--translate-y", choiceBlock, 100, 0);
+    setProperty(easeBlockImages, "--opacity", easeBlock, 0, 1);
+
+    if (compoundBlock.getBoundingClientRect().top > innerHeight) {
+      setProperty(choicesBlockImages, "--opacity", choiceBlock, 0, 1);
+    } else {
+      setProperty(choicesBlockImages, "--opacity", compoundBlock, 1, 0);
+    }
   });
 }
 
