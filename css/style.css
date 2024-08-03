@@ -1015,16 +1015,19 @@ button.swiper-pagination-bullet {
   position: fixed;
   inset: 0;
   z-index: 1;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.25));
+  opacity: var(--opacity, 0);
   pointer-events: none;
 }
 
 .product__item {
   position: absolute;
-  inset-block-start: 50%;
-  inset-inline-start: 50%;
-  inline-size: 26.0416666667vw;
+  inset-block-end: calc(var(--bottom, 183) * 1px);
+  inset-inline-end: calc(var(--right, 408) * 1px);
+  inline-size: calc(var(--width, 143) * 1px);
   aspect-ratio: 500/615;
-  transform: translate(-50%, -50%);
+  transform: rotate(calc(var(--rotate, -18) * 1deg));
+  rotate: calc(var(--x) / 4 * 1deg);
 }
 
 .product__item::after {
