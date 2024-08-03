@@ -1073,7 +1073,7 @@ button.swiper-pagination-bullet {
 
 .product__cap {
   position: absolute;
-  inset-block-start: -21.5804878049%;
+  inset-block-start: calc(var(--cap-top, -132.72) / 615 * 100%);
   inset-inline: -3.392% -3.388%;
   aspect-ratio: 457.66/172.89;
 }

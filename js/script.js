@@ -3263,6 +3263,7 @@ const compoundBlock = document.querySelector(".compound");
 const easeBlock = document.querySelector(".ease");
 const easeBlockImages = document.querySelector(".ease-images");
 const product = document.querySelector(".product");
+const productCap = document.querySelector(".product__cap");
 
 function initCustomScroll() {
   const locomotive = new locomotive_scroll_esm({
@@ -3293,7 +3294,6 @@ function initCustomScroll() {
     setProperty(choicesBlockImages, "--translate-y", choiceBlock, 100, 0);
     setProperty(easeBlockImages, "--opacity", easeBlock, 0, 1);
     setProperty(product, "--opacity", choiceBlock, 0, 1);
-    setProperty(product, "--rotate", choiceBlock, -18, 18);
 
     if (compoundBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(choicesBlockImages, "--opacity", choiceBlock, 0, 1);
@@ -3301,26 +3301,59 @@ function initCustomScroll() {
       setProperty(choicesBlockImages, "--opacity", compoundBlock, 1, 0);
     }
 
+    if (compoundBlock.getBoundingClientRect().top > innerHeight) {
+      setProperty(product, "--rotate", choiceBlock, -18, 18);
+    } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
+      setProperty(product, "--rotate", compoundBlock, 18, 0);
+    }
+
     switch (true) {
       case matchMedia("(min-width: 1440.1px)").matches:
-        setProperty(product, "--right", choiceBlock, responsiveValue(408, 306, 1920, 1440, "fixed-end-value"), responsiveValue(475, 356, 1920, 1440, "fixed-end-value"));
-        setProperty(product, "--bottom", choiceBlock, responsiveValue(183, 137, 1920, 1440, "fixed-end-value"), responsiveValue(164, 123, 1920, 1440, "fixed-end-value"));
-        setProperty(product, "--width", choiceBlock, responsiveValue(143, 108, 1920, 1440, "fixed-end-value"), responsiveValue(457, 343, 1920, 1440, "fixed-end-value"));
+        if (compoundBlock.getBoundingClientRect().top > innerHeight) {
+          setProperty(product, "--right", choiceBlock, responsiveValue(408, 306, 1920, 1440, "fixed-end-value"), responsiveValue(508, 381, 1920, 1440, "fixed-end-value"));
+          setProperty(product, "--bottom", choiceBlock, responsiveValue(183, 137, 1920, 1440, "fixed-end-value"), responsiveValue(164, 123, 1920, 1440, "fixed-end-value"));
+          setProperty(product, "--width", choiceBlock, responsiveValue(143, 108, 1920, 1440, "fixed-end-value"), responsiveValue(423, 317, 1920, 1440, "fixed-end-value"));
+        } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
+          setProperty(product, "--right", compoundBlock, responsiveValue(508, 381, 1920, 1440, "fixed-end-value"), responsiveValue(738, 553, 1920, 1440, "fixed-end-value"));
+          setProperty(product, "--bottom", compoundBlock, responsiveValue(164, 123, 1920, 1440, "fixed-end-value"), responsiveValue(35, 26, 1920, 1440, "fixed-end-value"));
+          setProperty(productCap, "--cap-top", compoundBlock, -132.72, -372.64);
+        }
+
         break;
       case matchMedia("(min-width: 1280.1px)").matches:
-        setProperty(product, "--right", choiceBlock, responsiveValue(306, 224, 1440, 1280, "fixed-both"), responsiveValue(356, 276, 1440, 1280, "fixed-both"));
-        setProperty(product, "--bottom", choiceBlock, responsiveValue(183, 137, 1920, 1440, "fixed-end-value"), responsiveValue(164, 123, 1920, 1440, "fixed-end-value"));
-        setProperty(product, "--width", choiceBlock, responsiveValue(143, 108, 1920, 1440, "fixed-end-value"), responsiveValue(457, 343, 1920, 1440, "fixed-end-value"));
+        if (compoundBlock.getBoundingClientRect().top > innerHeight) {
+          setProperty(product, "--right", choiceBlock, responsiveValue(306, 224, 1440, 1280, "fixed-both"), responsiveValue(381, 301, 1440, 1280, "fixed-both"));
+          setProperty(product, "--bottom", choiceBlock, responsiveValue(183, 137, 1920, 1440, "fixed-end-value"), responsiveValue(164, 123, 1920, 1440, "fixed-end-value"));
+          setProperty(product, "--width", choiceBlock, responsiveValue(143, 108, 1920, 1440, "fixed-end-value"), responsiveValue(423, 317, 1920, 1440, "fixed-end-value"));
+        } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
+          setProperty(product, "--right", compoundBlock, responsiveValue(381, 301, 1440, 1280, "fixed-both"), responsiveValue(553, 473, 1440, 1280, "fixed-both"));
+          setProperty(product, "--bottom", compoundBlock, responsiveValue(164, 123, 1920, 1440, "fixed-end-value"), responsiveValue(35, 26, 1920, 1440, "fixed-end-value"));
+          setProperty(productCap, "--cap-top", compoundBlock, -132.72, -372.64);
+        }
+
         break;
       case matchMedia("(min-width: 992.1px)").matches:
-        setProperty(product, "--right", choiceBlock, responsiveValue(224, 92, 1280, 1024, "not-fixed"), responsiveValue(276, 148, 1280, 1024, "not-fixed"));
-        setProperty(product, "--bottom", choiceBlock, responsiveValue(183, 137, 1920, 1440, "fixed-end-value"), responsiveValue(164, 123, 1920, 1440, "fixed-end-value"));
-        setProperty(product, "--width", choiceBlock, responsiveValue(143, 108, 1920, 1440, "fixed-end-value"), responsiveValue(457, 343, 1920, 1440, "fixed-end-value"));
+        if (compoundBlock.getBoundingClientRect().top > innerHeight) {
+          setProperty(product, "--right", choiceBlock, responsiveValue(224, 92, 1280, 1024, "not-fixed"), responsiveValue(301, 173, 1280, 1024, "not-fixed"));
+          setProperty(product, "--bottom", choiceBlock, responsiveValue(183, 137, 1920, 1440, "fixed-end-value"), responsiveValue(164, 123, 1920, 1440, "fixed-end-value"));
+          setProperty(product, "--width", choiceBlock, responsiveValue(143, 108, 1920, 1440, "fixed-end-value"), responsiveValue(423, 317, 1920, 1440, "fixed-end-value"));
+        } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
+          setProperty(product, "--right", compoundBlock, responsiveValue(301, 173, 1280, 1024, "not-fixed"), responsiveValue(473, 345, 1280, 1024, "not-fixed"));
+          setProperty(product, "--bottom", compoundBlock, responsiveValue(164, 123, 1920, 1440, "fixed-end-value"), responsiveValue(35, 26, 1920, 1440, "fixed-end-value"));
+          setProperty(productCap, "--cap-top", compoundBlock, -132.72, -372.64);
+        }
+
         break;
       default:
-        setProperty(product, "--right", choiceBlock, responsiveValue(45, 23, 720, 360, "not-fixed"), responsiveValue(144, 72, 720, 360, "not-fixed"));
-        setProperty(product, "--bottom", choiceBlock, responsiveValue(195, 96, 720, 360, "not-fixed"), responsiveValue(178, 89, 720, 360, "not-fixed"));
-        setProperty(product, "--width", choiceBlock, responsiveValue(122, 61, 720, 360, "not-fixed"), responsiveValue(395, 197, 720, 360, "not-fixed"));
+        if (compoundBlock.getBoundingClientRect().top > innerHeight) {
+          setProperty(product, "--right", choiceBlock, responsiveValue(45, 23, 720, 360, "not-fixed"), responsiveValue(172, 86, 720, 360, "not-fixed"));
+          setProperty(product, "--bottom", choiceBlock, responsiveValue(195, 96, 720, 360, "not-fixed"), responsiveValue(178, 89, 720, 360, "not-fixed"));
+          setProperty(product, "--width", choiceBlock, responsiveValue(122, 61, 720, 360, "not-fixed"), responsiveValue(366, 183, 720, 360, "not-fixed"));
+        } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
+          setProperty(product, "--right", compoundBlock, responsiveValue(172, 86, 720, 360, "not-fixed"), responsiveValue(157, 78, 720, 360, "not-fixed"));
+          setProperty(product, "--bottom", compoundBlock, responsiveValue(178, 89, 720, 360, "not-fixed"), responsiveValue(198, 99, 720, 360, "not-fixed"));
+          setProperty(productCap, "--cap-top", compoundBlock, -132.72, -540.85);
+        }
     }
   });
 }
