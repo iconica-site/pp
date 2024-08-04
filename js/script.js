@@ -3459,63 +3459,67 @@ window.addEventListener("load", () => {
 });
 
 ;// CONCATENATED MODULE: ./src/js/scripts/scripts/move.js
-const { body: move_body } = document;
-const { style } = move_body;
+const hoverScreen = matchMedia("(hover: hover)");
 
-let bodyInlineCenter, bodyBlockCenter, durationTimeout;
+if (hoverScreen.matches) {
+  const { body } = document;
+  const { style } = body;
 
-observe();
+  let bodyInlineCenter, bodyBlockCenter, durationTimeout;
 
-move_body.addEventListener("mouseenter", () => {
-  setDuration(100);
-});
+  observe();
 
-move_body.addEventListener("mouseleave", () => {
-  removePosition();
-});
-
-function observe() {
-  const bodyResizeObserver = new ResizeObserver(entries => {
-    entries.forEach(entry => {
-      const { borderBoxSize } = entry;
-      const { inlineSize, blockSize } = borderBoxSize[0];
-
-      [bodyInlineCenter, bodyBlockCenter] = [inlineSize / 2, blockSize / 2];
-    });
+  body.addEventListener("mouseenter", () => {
+    setDuration(100);
   });
 
-  bodyResizeObserver.observe(move_body);
+  body.addEventListener("mouseleave", () => {
+    removePosition();
+  });
 
-  move_body.addEventListener("mousemove", mousemove);
-}
+  function observe() {
+    const bodyResizeObserver = new ResizeObserver(entries => {
+      entries.forEach(entry => {
+        const { borderBoxSize } = entry;
+        const { inlineSize, blockSize } = borderBoxSize[0];
 
-function mousemove(event) {
-  const { clientX, clientY } = event;
+        [bodyInlineCenter, bodyBlockCenter] = [inlineSize / 2, blockSize / 2];
+      });
+    });
 
-  const x = (clientX - bodyInlineCenter) / bodyInlineCenter * 100;
-  const y = (bodyBlockCenter - clientY) / bodyBlockCenter * 100;
+    bodyResizeObserver.observe(body);
 
-  style.setProperty("--x", x);
-  style.setProperty("--y", y);
-}
+    body.addEventListener("mousemove", mousemove);
+  }
 
-function removePosition() {
-  setDuration();
+  function mousemove(event) {
+    const { clientX, clientY } = event;
 
-  style.removeProperty("--rotate-x");
-  style.removeProperty("--rotate-y");
-}
+    const x = (clientX - bodyInlineCenter) / bodyInlineCenter * 100;
+    const y = (bodyBlockCenter - clientY) / bodyBlockCenter * 100;
 
-function setDuration(duration = 1000) {
-  style.setProperty("--duration", `${duration}ms`);
+    style.setProperty("--x", x);
+    style.setProperty("--y", y);
+  }
 
-  if (durationTimeout) clearTimeout(durationTimeout);
+  function removePosition() {
+    setDuration();
 
-  durationTimeout = setTimeout(removeDuration, duration);
-}
+    style.removeProperty("--rotate-x");
+    style.removeProperty("--rotate-y");
+  }
 
-function removeDuration() {
-  style.removeProperty("--duration");
+  function setDuration(duration = 1000) {
+    style.setProperty("--duration", `${duration}ms`);
+
+    if (durationTimeout) clearTimeout(durationTimeout);
+
+    durationTimeout = setTimeout(removeDuration, duration);
+  }
+
+  function removeDuration() {
+    style.removeProperty("--duration");
+  }
 }
 
 ;// CONCATENATED MODULE: ./src/js/scripts/scripts.js
