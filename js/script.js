@@ -3265,11 +3265,16 @@ const compoundBlockInner = document.querySelector(".compound__inner");
 const compoundBlockTexts = document.querySelectorAll(".compound__text");
 const easeBlock = document.querySelector(".ease");
 const easeBlockImages = document.querySelector(".ease-images");
+const withBlock = document.querySelector(".with");
+const withBlockImagesWrapper = document.querySelector(".with-images__wrapper");
 const product = document.querySelector(".product");
 
 const compoundBlockTextsMaxHeight = Math.max(...[...compoundBlockTexts].map((text) => text.scrollHeight));
 const productHeight = innerHeight - (parseFloat(getComputedStyle(compoundBlockInner).insetBlockStart) + compoundBlockTextsMaxHeight + responsiveValue(35, 26, 1920, 1440, "fixed-end-value") * 2);
 const productWidth = 500 * productHeight / 615;
+
+const withBlockImagesWrapperBottom = parseFloat(getComputedStyle(withBlockImagesWrapper).insetBlockEnd);
+const withBlockImagesWrapperWidth = parseFloat(getComputedStyle(withBlockImagesWrapper).inlineSize);
 
 function initCustomScroll() {
   const locomotive = new locomotive_scroll_esm({
@@ -3295,6 +3300,7 @@ function initCustomScroll() {
 
     wrapper.classList.toggle("choice-transition", choiceBlock.getBoundingClientRect().top <= 0 && choiceBlock.getBoundingClientRect().bottom >= innerHeight);
     wrapper.classList.toggle("compound-transition", compoundBlock.getBoundingClientRect().top <= 0 && compoundBlock.getBoundingClientRect().bottom >= innerHeight);
+    wrapper.classList.toggle("ease-transition", easeBlock.getBoundingClientRect().top <= 0 && easeBlock.getBoundingClientRect().bottom >= innerHeight);
     wrapper.classList.toggle("change-inline", compoundBlock.getBoundingClientRect().top <= 0);
 
     setProperty(sliderArrows, "--inset-inline", choiceBlock, -25, 0);
@@ -3303,7 +3309,8 @@ function initCustomScroll() {
     setProperty(choiceBlock, "--opacity", choiceBlock, 0, 1);
     setProperty(choicesBlockImages, "--translate-y", choiceBlock, 100, 0);
     setProperty(compoundBlock, "--opacity", compoundBlock, 0, 1);
-    setProperty(easeBlockImages, "--opacity", easeBlock, 0, 1);
+    setProperty(easeBlock, "--opacity", easeBlock, 0, 1);
+    setProperty(easeBlockImages, "--translate-y", withBlock, 0, -100);
     setProperty(product, "--opacity", choiceBlock, 0, 1);
     setProperty(product, "--cap-opacity", easeBlock, 1, 0);
     setProperty(product, "--cap-translate-y", easeBlock, 0, -100);
@@ -3313,6 +3320,7 @@ function initCustomScroll() {
     setProperty(product, "--open-top", easeBlock, 18, -184);
     setProperty(product, "--open-left", easeBlock, 0, 97);
     setProperty(product, "--open-width", easeBlock, 0, 400);
+    setProperty(product, "--translate-divider", withBlock, 1, 0);
 
     if (compoundBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(choicesBlockImages, "--opacity", choiceBlock, 0, 1);
@@ -3330,7 +3338,7 @@ function initCustomScroll() {
       setProperty(product, "--item-left-right", compoundBlock, 50, 100);
       setProperty(product, "--item-rotate", compoundBlock, 0, 15);
       setProperty(product, "--item-transform-x", compoundBlock, -50, 0);
-    } else {
+    } else if (withBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(product, "--rotate", easeBlock, 0, -15);
       setProperty(product, "--rotate-divider", easeBlock, 0, 1);
       setProperty(product, "--item-opacity", easeBlock, 1, 0);
@@ -3338,9 +3346,16 @@ function initCustomScroll() {
       setProperty(product, "--item-left-right", easeBlock, 100, 50);
       setProperty(product, "--item-rotate", easeBlock, 15, 0);
       setProperty(product, "--item-transform-x", easeBlock, 0, -50);
+    } else {
+      setProperty(product, "--rotate", withBlock, -15, 0);
+      setProperty(product, "--rotate-divider", withBlock, 1, 0);
     }
 
     if (MIN_993_PX.matches) {
+      setProperty(product, "--spoon-top", withBlock, -395.58, 14.62);
+      setProperty(product, "--spoon-left", withBlock, -44, 80.04);
+      setProperty(product, "--spoon-rotate", withBlock, -10.12, 0);
+
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(product, "--item-translate-x-left", compoundBlock, 0, -166.81);
         setProperty(product, "--item-top-left", compoundBlock, 0, 77.86);
@@ -3356,8 +3371,9 @@ function initCustomScroll() {
         setProperty(product, "--item-top-right", easeBlock, 72.26, 0);
         setProperty(product, "--item-bottom-right", easeBlock, 119.42, 0);
       }
-
     } else {
+
+
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(product, "--item-translate-x-left", compoundBlock, 0, -103.41);
         setProperty(product, "--item-top-left", compoundBlock, 0, 114.81);
@@ -3373,7 +3389,6 @@ function initCustomScroll() {
         setProperty(product, "--item-top-right", easeBlock, 113.55, 0);
         setProperty(product, "--item-bottom-right", easeBlock, 80.76, 0);
       }
-
     }
 
     switch (true) {
@@ -3388,11 +3403,16 @@ function initCustomScroll() {
           setProperty(product, "--bottom", compoundBlock, responsiveValue(164, 123, 1920, 1440, "fixed-end-value"), responsiveValue(35, 26, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--width", compoundBlock, responsiveValue(423, 317, 1920, 1440, "fixed-end-value"), productWidth);
           setProperty(product, "--cap-top", compoundBlock, -104.49, -372.64);
-        } else {
+        } else if (withBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--inset-inline", easeBlock, innerWidth / 2, responsiveValue(496, 372, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--translate-x", easeBlock, 50, 0);
           setProperty(product, "--bottom", easeBlock, responsiveValue(35, 26, 1920, 1440, "fixed-end-value"), responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--width", easeBlock, productWidth, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"));
+        } else {
+          setProperty(product, "--inset-inline", withBlock, responsiveValue(496, 372, 1920, 1440, "fixed-end-value"), innerWidth / 2);
+          setProperty(product, "--translate-x", withBlock, 0, 50);
+          setProperty(product, "--bottom", withBlock, responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperBottom);
+          setProperty(product, "--width", withBlock, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperWidth);
         }
 
         break;
@@ -3406,11 +3426,16 @@ function initCustomScroll() {
           setProperty(product, "--translate-x", compoundBlock, 0, 50);
           setProperty(product, "--bottom", compoundBlock, responsiveValue(164, 123, 1920, 1440, "fixed-end-value"), responsiveValue(35, 26, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--cap-top", compoundBlock, -78.37, -279.74);
-        } else {
+        } else if (withBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--inset-inline", easeBlock, innerWidth / 2, responsiveValue(372, 292, 1440, 1280, "fixed-both"));
           setProperty(product, "--translate-x", easeBlock, 50, 0);
           setProperty(product, "--bottom", easeBlock, responsiveValue(35, 26, 1920, 1440, "fixed-end-value"), responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--width", easeBlock, productWidth, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"));
+        } else {
+          setProperty(product, "--inset-inline", withBlock, responsiveValue(496, 372, 1920, 1440, "fixed-end-value"), innerWidth / 2);
+          setProperty(product, "--translate-x", withBlock, 0, 50);
+          setProperty(product, "--bottom", withBlock, responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperBottom);
+          setProperty(product, "--width", withBlock, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperWidth);
         }
 
         break;
@@ -3424,11 +3449,16 @@ function initCustomScroll() {
           setProperty(product, "--translate-x", compoundBlock, 0, 50);
           setProperty(product, "--bottom", compoundBlock, responsiveValue(164, 123, 1920, 1440, "fixed-end-value"), responsiveValue(35, 26, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--cap-top", compoundBlock, -78.37, -279.74);
-        } else {
+        } else if (withBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--inset-inline", easeBlock, innerWidth / 2, responsiveValue(292, 164, 1280, 1024, "not-fixed"));
           setProperty(product, "--translate-x", easeBlock, 50, 0);
           setProperty(product, "--bottom", easeBlock, responsiveValue(35, 26, 1920, 1440, "fixed-end-value"), responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--width", easeBlock, productWidth, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"));
+        } else {
+          setProperty(product, "--inset-inline", withBlock, responsiveValue(496, 372, 1920, 1440, "fixed-end-value"), innerWidth / 2);
+          setProperty(product, "--translate-x", withBlock, 0, 50);
+          setProperty(product, "--bottom", withBlock, responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperBottom);
+          setProperty(product, "--width", withBlock, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperWidth);
         }
 
         break;
@@ -3442,11 +3472,13 @@ function initCustomScroll() {
           setProperty(product, "--translate-x", compoundBlock, 0, 50);
           setProperty(product, "--bottom", compoundBlock, responsiveValue(178, 89, 720, 360, "not-fixed"), responsiveValue(198, 99, 720, 360, "not-fixed"));
           setProperty(product, "--cap-top", compoundBlock, -90.3, -467.39);
-        } else {
+        } else if (withBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--inset-inline", easeBlock, innerWidth / 2, responsiveValue(150, 75, 720, 360, "not-fixed"));
           setProperty(product, "--translate-x", easeBlock, 50, 0);
           setProperty(product, "--bottom", easeBlock, responsiveValue(198, 99, 720, 360, "not-fixed"), responsiveValue(-146, -73, 720, 360, "not-fixed"));
           setProperty(product, "--width", easeBlock, responsiveValue(366, 183, 720, 360, "not-fixed"), responsiveValue(458, 229, 720, 360, "not-fixed"));
+        } else {
+
         }
     }
   });
@@ -13075,7 +13107,48 @@ if (visuallyHidden) {
   });
 }
 
+;// CONCATENATED MODULE: ./src/js/libraries/swiper/sliders/with-slider.js
+
+
+
+const withSlider = document.querySelector(".with-slider");
+
+if (withSlider) {
+  const swiper = new Swiper(withSlider, {
+    modules: [Keyboard, Navigation, Pagination,],
+    keyboard: {
+      enabled: true,
+      pageUpDown: false,
+    },
+    navigation: {
+      enabled: true,
+      nextEl: ".with-arrows__button--next",
+      prevEl: ".with-arrows__button--prev",
+    },
+    pagination: {
+      clickable: true,
+      el: ".Keyboard, Navigation, Pagination,__pagination",
+      enabled: true,
+    },
+    breakpoints: {
+      "992.1": {
+        spaceBetween: 15,
+      },
+      "1440.1": {
+        spaceBetween: 30,
+      },
+    },
+    slidesPerView: 5,
+    rewind: true,
+    spaceBetween: 18 / 720 * innerWidth,
+    centeredSlides: true,
+    initialSlide: 5,
+    slideToClickedSlide: true,
+  });
+}
+
 ;// CONCATENATED MODULE: ./src/js/libraries/swiper/swiper.js
+
 
 
 ;// CONCATENATED MODULE: ./src/js/libraries/libraries.js
