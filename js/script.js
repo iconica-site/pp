@@ -3283,7 +3283,9 @@ function initCustomScroll() {
     direction: "vertical",
     reloadOnContextChange: true,
     repeat: true,
-    lerp: MIN_993_PX.matches ? 0.05 : 0.1,
+    // lerp: MIN_993_PX.matches ? 0.05 : 0.1,
+    lerp: 0.1,
+    // lerp: 0.3,
     smartphone: {
       smooth: true,
       direction: "vertical",
@@ -3355,6 +3357,13 @@ function initCustomScroll() {
       setProperty(product, "--spoon-top", withBlock, -395.58, 14.62);
       setProperty(product, "--spoon-left", withBlock, -44, 80.04);
       setProperty(product, "--spoon-rotate", withBlock, -10.12, 0);
+      setProperty(product, "--basis-top", withBlock, -498.6, 14.62);
+      setProperty(product, "--basis-left", withBlock, -31.56, 80.04);
+      setProperty(product, "--basis-width", withBlock, 414.14, 328.29);
+      setProperty(product, "--blobs-top", withBlock, -567.26, 14.62);
+      setProperty(product, "--blobs-right", withBlock, -34.54, 80.04);
+      setProperty(product, "--blobs-width", withBlock, 318.04, 328.29);
+      setProperty(product, "--blobs-rotate", withBlock, -18.47, 0);
 
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(product, "--item-translate-x-left", compoundBlock, 0, -166.81);
@@ -3372,7 +3381,16 @@ function initCustomScroll() {
         setProperty(product, "--item-bottom-right", easeBlock, 119.42, 0);
       }
     } else {
-
+      setProperty(product, "--spoon-top", withBlock, -446.57, 13.92);
+      setProperty(product, "--spoon-left", withBlock, 101.22, 81.02);
+      setProperty(product, "--spoon-rotate", withBlock, 13.32, 0);
+      setProperty(product, "--basis-top", withBlock, -466.51, 13.92);
+      setProperty(product, "--basis-left", withBlock, -4.14, 81.02);
+      setProperty(product, "--basis-width", withBlock, 388.55, 296.15);
+      setProperty(product, "--blobs-top", withBlock, -496.08, 13.92);
+      setProperty(product, "--blobs-right", withBlock, -138.05, 81.02);
+      setProperty(product, "--blobs-width", withBlock, 332.29, 296.15);
+      setProperty(product, "--blobs-rotate", withBlock, -12.75, 0);
 
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(product, "--item-translate-x-left", compoundBlock, 0, -103.41);
@@ -3478,7 +3496,9 @@ function initCustomScroll() {
           setProperty(product, "--bottom", easeBlock, responsiveValue(198, 99, 720, 360, "not-fixed"), responsiveValue(-146, -73, 720, 360, "not-fixed"));
           setProperty(product, "--width", easeBlock, responsiveValue(366, 183, 720, 360, "not-fixed"), responsiveValue(458, 229, 720, 360, "not-fixed"));
         } else {
-
+          setProperty(product, "--inset-inline", withBlock, responsiveValue(150, 75, 720, 360, "not-fixed"), responsiveValue(256.23, 128.12, 720, 360, "not-fixed"));
+          setProperty(product, "--bottom", withBlock, responsiveValue(-146, -73, 720, 360, "not-fixed"), withBlockImagesWrapperBottom);
+          setProperty(product, "--width", withBlock, responsiveValue(458, 229, 720, 360, "not-fixed"), withBlockImagesWrapperWidth);
         }
     }
   });
@@ -13083,10 +13103,10 @@ function EffectCards(_ref) {
 
 
 
-const visuallyHidden = document.querySelector(".visually-hidden");
+const boxSlider = document.querySelector(".box-slider");
 
-if (visuallyHidden) {
-  const swiper = new Swiper(visuallyHidden, {
+if (boxSlider) {
+  const swiper = new Swiper(boxSlider, {
     modules: [Keyboard, Navigation, Pagination,],
     keyboard: {
       enabled: true,
@@ -13105,6 +13125,14 @@ if (visuallyHidden) {
     slidesPerView: 1,
     rewind: true,
   });
+
+  const choicesItems = document.querySelectorAll(".choices__item");
+
+  choicesItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      swiper.slideTo(item.dataset.slide, 300, true);
+    });
+  });
 }
 
 ;// CONCATENATED MODULE: ./src/js/libraries/swiper/sliders/with-slider.js
@@ -13115,7 +13143,7 @@ const withSlider = document.querySelector(".with-slider");
 
 if (withSlider) {
   const swiper = new Swiper(withSlider, {
-    modules: [Keyboard, Navigation, Pagination,],
+    modules: [Keyboard, Navigation,],
     keyboard: {
       enabled: true,
       pageUpDown: false,
@@ -13125,11 +13153,6 @@ if (withSlider) {
       nextEl: ".with-arrows__button--next",
       prevEl: ".with-arrows__button--prev",
     },
-    pagination: {
-      clickable: true,
-      el: ".Keyboard, Navigation, Pagination,__pagination",
-      enabled: true,
-    },
     breakpoints: {
       "992.1": {
         spaceBetween: 15,
@@ -13138,12 +13161,39 @@ if (withSlider) {
         spaceBetween: 30,
       },
     },
+    on: {
+      afterInit: (swiper) => {
+        setTimeout(() => {
+          const { el, slides, } = swiper;
+
+          [...slides].forEach((slide, index) => {
+            if (index < 5) {
+              const slideTitle = slide.querySelector(".with-slider__title");
+              const slideTitleWidth = getComputedStyle(slideTitle).inlineSize;
+              const propertyName = slide.className.match(/--[a-z\-]{0,}\s/)[0].replace(" ", "");
+
+              el.style.setProperty(`${propertyName}-width`, slideTitleWidth);
+            }
+          });
+        });
+      },
+    },
     slidesPerView: 5,
     rewind: true,
     spaceBetween: 18 / 720 * innerWidth,
     centeredSlides: true,
     initialSlide: 5,
     slideToClickedSlide: true,
+    loop: true,
+    loopAddBlankSlides: true,
+  });
+
+  const withSliderPaginationItems = document.querySelectorAll(".with-pagination__item");
+
+  withSliderPaginationItems.forEach((item) => {
+    item.addEventListener("click", () => {
+      swiper.slideTo(item.dataset.slide, 300, true);
+    });
   });
 }
 
