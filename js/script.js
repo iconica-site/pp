@@ -3271,6 +3271,9 @@ const waitBlock = document.querySelector(".wait");
 const waitImages = document.querySelector(".wait-images");
 const emotions = document.querySelector(".emotions");
 const emotionsBlock = document.querySelector(".emotions-block");
+const feedbackBlock = document.querySelector(".feedback");
+const feedbackImages = document.querySelector(".feedback-images");
+const feedbackBox = document.querySelector(".feedback-placeholders__box");
 const product = document.querySelector(".product");
 
 const compoundBlockTextsMaxHeight = Math.max(...[...compoundBlockTexts].map((text) => text.scrollHeight));
@@ -3279,6 +3282,13 @@ const productWidth = 500 * productHeight / 615;
 
 const withBlockImagesWrapperBottom = parseFloat(getComputedStyle(withBlockImagesWrapper).insetBlockEnd);
 const withBlockImagesWrapperWidth = parseFloat(getComputedStyle(withBlockImagesWrapper).inlineSize);
+
+const feedbackBoxWidth = feedbackBox.getBoundingClientRect().width;
+const feedbackBoxLeft = feedbackBox.getBoundingClientRect().left;
+const feedbackBoxBottom = innerHeight - feedbackBox.getBoundingClientRect().bottom;
+
+console.log(feedbackBoxWidth, feedbackBoxLeft, feedbackBoxBottom);
+
 
 function initCustomScroll() {
   const locomotive = new locomotive_scroll_esm({
@@ -3319,7 +3329,7 @@ function initCustomScroll() {
     setProperty(easeBlock, "--opacity", easeBlock, 0, 1);
     setProperty(easeBlockImages, "--translate-y", withBlock, 0, -100);
     setProperty(withBlock, "--translate-y", waitBlock, 0, 100);
-    setProperty(emotionsBlock, "--translate-y", emotions, 100, 0);
+    setProperty(feedbackImages, "--translate-y", feedbackBlock, 100, 0);
     setProperty(product, "--opacity", choiceBlock, 0, 1);
     setProperty(product, "--cap-opacity", easeBlock, 1, 0);
     setProperty(product, "--cap-translate-y", easeBlock, 0, -100);
@@ -3330,8 +3340,6 @@ function initCustomScroll() {
     setProperty(product, "--open-left", easeBlock, 0, 97);
     setProperty(product, "--open-width", easeBlock, 0, 400);
     setProperty(product, "--translate-divider", withBlock, 1, 0);
-    setProperty(product, "--image-left", waitBlock, -40, -290);
-    setProperty(product, "--image-translate-divider", waitBlock, 1, 0);
 
     if (compoundBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(choicesBlockImages, "--opacity", choiceBlock, 0, 1);
@@ -3362,14 +3370,22 @@ function initCustomScroll() {
       setProperty(product, "--rotate-divider", withBlock, 1, 0);
     } else if (emotions.getBoundingClientRect().top > innerHeight) {
       setProperty(product, "--rotate", waitBlock, 0, MIN_993_PX.matches ? -16 : -12);
-    } else {
+    } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(product, "--rotate", emotions, MIN_993_PX.matches ? -16 : -12, 26);
+    } else {
+      setProperty(product, "--rotate", feedbackBlock, 26, 0);
     }
 
     if (emotions.getBoundingClientRect().top > innerHeight) {
       setProperty(waitImages, "--translate-y", waitBlock, 100, 0);
     } else {
       setProperty(waitImages, "--translate-y", emotions, 0, -100);
+    }
+
+    if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
+      setProperty(emotionsBlock, "--translate-y", emotions, 100, 0);
+    } else {
+      setProperty(emotionsBlock, "--translate-y", feedbackBlock, 0, -100);
     }
 
     if (MIN_993_PX.matches) {
@@ -3383,6 +3399,7 @@ function initCustomScroll() {
       setProperty(product, "--blobs-right", withBlock, -34.54, 80.04);
       setProperty(product, "--blobs-width", withBlock, 318.04, 328.29);
       setProperty(product, "--blobs-rotate", withBlock, -18.47, 0);
+      setProperty(product, "--image-translate-divider", waitBlock, 1, 0);
 
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(product, "--item-translate-x-left", compoundBlock, 0, -166.81);
@@ -3398,6 +3415,12 @@ function initCustomScroll() {
         setProperty(product, "--item-translate-x-right", easeBlock, -89.66, 0);
         setProperty(product, "--item-top-right", easeBlock, 72.26, 0);
         setProperty(product, "--item-bottom-right", easeBlock, 119.42, 0);
+      }
+
+      if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--image-left", waitBlock, -40, -290);
+      } else {
+        setProperty(product, "--image-left", feedbackBlock, -290, -40);
       }
     } else {
       setProperty(product, "--spoon-top", withBlock, -446.57, 13.92);
@@ -3453,10 +3476,14 @@ function initCustomScroll() {
         } else if (emotions.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--bottom", waitBlock, withBlockImagesWrapperBottom, responsiveValue(133, 100, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--width", waitBlock, withBlockImagesWrapperWidth, responsiveValue(493, 370, 1920, 1440, "fixed-end-value"));
-        } else {
+        } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--inset-inline", emotions, innerWidth / 2, innerWidth / 2 + responsiveValue(222, 166, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--translate-x", emotions, 50, 0);
           setProperty(product, "--bottom", emotions, responsiveValue(133, 100, 1920, 1440, "fixed-end-value"), responsiveValue(40, 29, 1920, 1440, "fixed-end-value"));
+        } else {
+          setProperty(product, "--inset-inline", feedbackBlock, innerWidth / 2 + responsiveValue(222, 166, 1920, 1440, "fixed-end-value"), feedbackBoxLeft);
+          setProperty(product, "--bottom", feedbackBlock, responsiveValue(40, 29, 1920, 1440, "fixed-end-value"), feedbackBoxBottom);
+          setProperty(product, "--width", feedbackBlock, responsiveValue(493, 370, 1920, 1440, "fixed-end-value"), feedbackBoxWidth);
         }
 
         break;
@@ -3483,10 +3510,14 @@ function initCustomScroll() {
         } else if (emotions.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--bottom", waitBlock, withBlockImagesWrapperBottom, responsiveValue(133, 100, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--width", waitBlock, withBlockImagesWrapperWidth, responsiveValue(493, 370, 1920, 1440, "fixed-end-value"));
-        } else {
+        } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--inset-inline", emotions, innerWidth / 2, innerWidth / 2 + responsiveValue(222, 166, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--translate-x", emotions, 50, 0);
           setProperty(product, "--bottom", emotions, responsiveValue(133, 100, 1920, 1440, "fixed-end-value"), responsiveValue(40, 29, 1920, 1440, "fixed-end-value"));
+        } else {
+          setProperty(product, "--inset-inline", feedbackBlock, innerWidth / 2 + responsiveValue(222, 166, 1920, 1440, "fixed-end-value"), feedbackBoxLeft);
+          setProperty(product, "--bottom", feedbackBlock, responsiveValue(40, 29, 1920, 1440, "fixed-end-value"), feedbackBoxBottom);
+          setProperty(product, "--width", feedbackBlock, responsiveValue(493, 370, 1920, 1440, "fixed-end-value"), feedbackBoxWidth);
         }
 
         break;
@@ -3513,10 +3544,14 @@ function initCustomScroll() {
         } else if (emotions.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--bottom", waitBlock, withBlockImagesWrapperBottom, responsiveValue(133, 100, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--width", waitBlock, withBlockImagesWrapperWidth, responsiveValue(493, 370, 1920, 1440, "fixed-end-value"));
-        } else {
+        } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--inset-inline", emotions, innerWidth / 2, innerWidth / 2 + responsiveValue(222, 166, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--translate-x", emotions, 50, 0);
           setProperty(product, "--bottom", emotions, responsiveValue(133, 100, 1920, 1440, "fixed-end-value"), responsiveValue(40, 29, 1920, 1440, "fixed-end-value"));
+        } else {
+          setProperty(product, "--inset-inline", feedbackBlock, innerWidth / 2 + responsiveValue(222, 166, 1920, 1440, "fixed-end-value"), feedbackBoxLeft);
+          setProperty(product, "--bottom", feedbackBlock, responsiveValue(40, 29, 1920, 1440, "fixed-end-value"), feedbackBoxBottom);
+          setProperty(product, "--width", feedbackBlock, responsiveValue(493, 370, 1920, 1440, "fixed-end-value"), feedbackBoxWidth);
         }
 
         break;
@@ -3540,10 +3575,15 @@ function initCustomScroll() {
           setProperty(product, "--bottom", withBlock, responsiveValue(-146, -73, 720, 360, "not-fixed"), withBlockImagesWrapperBottom);
           setProperty(product, "--width", withBlock, responsiveValue(458, 229, 720, 360, "not-fixed"), withBlockImagesWrapperWidth);
         } else if (emotions.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--bottom", waitBlock, withBlockImagesWrapperBottom, responsiveValue(604, 302, 720, 360, "not-fixed"));
+          setProperty(product, "--inset-inline", waitBlock, responsiveValue(256.23, 128.12, 720, 360, "not-fixed"), responsiveValue(156.48, 78.24, 720, 360, "not-fixed"));
+          setProperty(product, "--bottom", waitBlock, withBlockImagesWrapperBottom, responsiveValue(604.42, 302.21, 720, 360, "not-fixed"));
           setProperty(product, "--width", waitBlock, withBlockImagesWrapperWidth, responsiveValue(383, 191, 720, 360, "not-fixed"));
-        } else {
+        } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--bottom", emotions, responsiveValue(604, 302, 720, 360, "not-fixed"), responsiveValue(40, 29, 720, 360, "not-fixed"));
+        } else {
+          setProperty(product, "--inset-inline", feedbackBlock, responsiveValue(156.48, 78.24, 720, 360, "not-fixed"), feedbackBoxLeft);
+          setProperty(product, "--bottom", feedbackBlock, responsiveValue(40, 29, 720, 360, "not-fixed"), feedbackBoxBottom);
+          setProperty(product, "--width", feedbackBlock, responsiveValue(383, 191, 720, 360, "not-fixed"), feedbackBoxWidth);
         }
     }
   });
@@ -3602,7 +3642,7 @@ function responsiveValue(startValue, endValue, startBreakpoint, endBreakpoint, b
 ;// CONCATENATED MODULE: ./src/js/scripts/scripts/progress.js
 
 
-const { body } = document;
+const { documentElement, body } = document;
 
 function progress() {
   /** @type {HTMLSpanElement} */
@@ -3616,12 +3656,12 @@ function progress() {
         progressNumbers.innerText = `${number}`.padStart(2, "0");
 
         if (number !== 100) {
-          updateProgress(number + 1);
+          updateProgress(documentElement.classList.contains("load") ? number + 1 : number === 90 ? number : number + 1);
         } else {
           body.classList.add("loaded");
           initCustomScroll();
         }
-      }, Math.random() * 50);
+      }, Math.random() * (documentElement.classList.contains("load") ? 50 : 500));
     }
   }
 }
@@ -3631,8 +3671,10 @@ function progress() {
 ;// CONCATENATED MODULE: ./src/js/scripts/scripts/load.js
 
 
+progress();
+
 window.addEventListener("load", () => {
-  progress();
+  document.documentElement.classList.add("load");
 });
 
 ;// CONCATENATED MODULE: ./src/js/scripts/scripts/move.js
