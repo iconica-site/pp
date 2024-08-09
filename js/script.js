@@ -3257,6 +3257,7 @@ const MIN_993_PX = window.matchMedia("(min-width: 992.1px)");
 
 const wrapper = document.querySelector(".wrapper");
 const sliderArrows = document.querySelector(".slider-arrows");
+const sliderPagination = document.querySelector(".slider-pagination");
 const heroBlock = document.querySelector(".hero");
 const choiceBlock = document.querySelector(".choice");
 const choicesBlockImages = document.querySelector(".choices-images");
@@ -3271,9 +3272,13 @@ const waitBlock = document.querySelector(".wait");
 const waitImages = document.querySelector(".wait-images");
 const emotions = document.querySelector(".emotions");
 const emotionsBlock = document.querySelector(".emotions-block");
+const emotionsSliderArrows = document.querySelector(".emotions-slider__arrows");
 const feedbackBlock = document.querySelector(".feedback");
 const feedbackImages = document.querySelector(".feedback-images");
 const feedbackBox = document.querySelector(".feedback-placeholders__box");
+const feedbackButton = document.querySelector(".feedback__button");
+const feedbackForm = document.querySelector(".feedback-form");
+const formCloseButton = document.querySelector(".form__close");
 const product = document.querySelector(".product");
 
 const compoundBlockTextsMaxHeight = Math.max(...[...compoundBlockTexts].map((text) => text.scrollHeight));
@@ -3287,8 +3292,7 @@ const feedbackBoxWidth = feedbackBox.getBoundingClientRect().width;
 const feedbackBoxLeft = feedbackBox.getBoundingClientRect().left;
 const feedbackBoxBottom = innerHeight - feedbackBox.getBoundingClientRect().bottom;
 
-console.log(feedbackBoxWidth, feedbackBoxLeft, feedbackBoxBottom);
-
+const emotionsSliderArrowsLeft = emotionsSliderArrows.getBoundingClientRect().left;
 
 function initCustomScroll() {
   const locomotive = new locomotive_scroll_esm({
@@ -3319,8 +3323,13 @@ function initCustomScroll() {
     wrapper.classList.toggle("ease-transition", easeBlock.getBoundingClientRect().top <= 0 && easeBlock.getBoundingClientRect().bottom >= innerHeight);
     wrapper.classList.toggle("wait-transition", waitBlock.getBoundingClientRect().top <= 0);
     wrapper.classList.toggle("change-inline", compoundBlock.getBoundingClientRect().top <= 0);
+    wrapper.classList.toggle("pagination-active", choiceBlock.getBoundingClientRect().top <= 0);
+    wrapper.classList.toggle("box-arrows-active", choiceBlock.getBoundingClientRect().top <= 0 && waitBlock.getBoundingClientRect().bottom >= innerHeight);
+    wrapper.classList.toggle("emotions-arrows-active", emotions.getBoundingClientRect().top <= 0 && emotions.getBoundingClientRect().bottom >= innerHeight);
 
-    setProperty(sliderArrows, "--inset-inline", choiceBlock, -25, 0);
+    setProperty(sliderArrows, "--opacity", emotions, 0.1, 0.5);
+    setProperty(sliderArrows, "--translate-x", emotions, 0, -55);
+    setProperty(sliderArrows, "--translate-y", feedbackBlock, 0, -100);
     setProperty(heroBlock, "--translate-y", choiceBlock, 0, 100);
     setProperty(heroBlock, "--opacity", choiceBlock, 1, 0);
     setProperty(choiceBlock, "--opacity", choiceBlock, 0, 1);
@@ -3340,6 +3349,22 @@ function initCustomScroll() {
     setProperty(product, "--open-left", easeBlock, 0, 97);
     setProperty(product, "--open-width", easeBlock, 0, 400);
     setProperty(product, "--translate-divider", withBlock, 1, 0);
+
+    if (emotions.getBoundingClientRect().top > innerHeight) {
+      setProperty(sliderArrows, "--inset-inline", choiceBlock, -25, 0);
+    } else {
+      setProperty(sliderArrows, "--inset-inline", emotions, 0, emotionsSliderArrowsLeft / innerWidth * 100);
+    }
+
+    if (withBlock.getBoundingClientRect().top > innerHeight) {
+      setProperty(sliderPagination, "--translate-y", choiceBlock, 100, 0);
+    } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
+      setProperty(sliderPagination, "--translate-y", withBlock, 0, 100);
+    } else if (emotions.getBoundingClientRect().top > innerHeight) {
+      setProperty(sliderPagination, "--translate-y", waitBlock, 100, 0);
+    } else {
+      setProperty(sliderPagination, "--translate-y", emotions, 0, 100);
+    }
 
     if (compoundBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(choicesBlockImages, "--opacity", choiceBlock, 0, 1);
@@ -3587,6 +3612,33 @@ function initCustomScroll() {
         }
     }
   });
+
+  feedbackButton?.addEventListener("click", () => {
+    feedbackForm?.classList.toggle("feedback-form--active");
+    feedbackBlock?.classList.toggle("feedback--active");
+
+    if (feedbackForm?.classList.contains("feedback-form--active")) {
+      locomotive.stop();
+    } else {
+      locomotive.start();
+    }
+  });
+
+  formCloseButton?.addEventListener("click", () => {
+    closeForm();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "Escape") {
+      closeForm();
+    }
+  });
+
+  function closeForm() {
+    feedbackForm?.classList.remove("feedback-form--active");
+    feedbackBlock?.classList.remove("feedback--active");
+    locomotive.start();
+  }
 }
 
 /**
@@ -13190,36 +13242,106 @@ function EffectCards(_ref) {
 
 
 
+const main_slider_wrapper = document.querySelector(".wrapper");
 const boxSlider = document.querySelector(".box-slider");
 
 if (boxSlider) {
   const swiper = new Swiper(boxSlider, {
-    modules: [Keyboard, Navigation, Pagination,],
+    modules: [Keyboard,],
     keyboard: {
       enabled: true,
       pageUpDown: false,
-    },
-    navigation: {
-      enabled: true,
-      nextEl: ".slider-arrows__button--next",
-      prevEl: ".slider-arrows__button--prev",
-    },
-    pagination: {
-      clickable: true,
-      el: ".Keyboard, Navigation, Pagination,__pagination",
-      enabled: true,
     },
     slidesPerView: 1,
     rewind: true,
   });
 
-  const choicesItems = document.querySelectorAll(".choices__item");
+  const prev = document.querySelector(".slider-arrows__button--prev");
+  const next = document.querySelector(".slider-arrows__button--next");
+
+  prev.addEventListener("click", () => {
+    if (main_slider_wrapper.classList.contains("box-arrows-active")) {
+      swiper.slidePrev();
+    }
+  });
+
+  next.addEventListener("click", () => {
+    if (main_slider_wrapper.classList.contains("box-arrows-active")) {
+      swiper.slideNext();
+    }
+  });
+
+  const choicesItems = document.querySelectorAll(".choices__item, .slider-pagination__item");
 
   choicesItems.forEach((item) => {
     item.addEventListener("click", () => {
       swiper.slideTo(item.dataset.slide, 300, true);
     });
   });
+
+  /** @type {HTMLElement} */
+  const main = document.querySelector(".main");
+
+  /** @type {number} */
+  let startX;
+  /** @type {number} */
+  let startY;
+  /** @type {number} */
+  let endX;
+  /** @type {number} */
+  let endY;
+
+  main?.addEventListener("touchstart", event => {
+    const { touches } = event;
+    const { clientX, clientY } = touches[0];
+
+    startX = clientX;
+    startY = clientY;
+  });
+
+  main?.addEventListener("touchend", event => {
+    const { changedTouches, target } = event;
+    const { clientX, clientY } = changedTouches[0];
+
+    endX = clientX;
+    endY = clientY;
+
+    if (!target.closest(".with__slider")) calculateAngle(startX, startY, endX, endY);
+  });
+
+  /**
+   * @param {number} startX
+   * @param {number} startY
+   * @param {number} endX
+   * @param {number} endY
+   */
+  function calculateAngle(startX, startY, endX, endY) {
+    const xDifference = startX - endX;
+    const yDifference = startY - endY;
+    const angleRad = Math.atan2(yDifference, xDifference);
+
+    let angleDeg = angleRad * (180 / Math.PI);
+
+    angleDeg = (angleDeg + 360) % 360;
+
+    if (Math.abs(xDifference) > 30) determineDirection(angleDeg);
+  }
+
+  /**
+   * @param {number} angle
+   * @param {number} tolerance
+   */
+  function determineDirection(angle, tolerance = 30) {
+    if ((angle >= 360 - tolerance) || (angle <= 0 + tolerance)) {
+      if (main_slider_wrapper.classList.contains("pagination-active")) {
+        swiper.slideNext(300, true);
+      }
+    } else if ((angle >= 180 - tolerance) && (angle <= 180 + tolerance)) {
+      if (main_slider_wrapper.classList.contains("pagination-active")) {
+        swiper.slidePrev(300, true);
+      }
+    }
+  }
 }
 
 ;// CONCATENATED MODULE: ./src/js/libraries/swiper/sliders/with-slider.js
@@ -13284,7 +13406,50 @@ if (withSlider) {
   });
 }
 
+;// CONCATENATED MODULE: ./src/js/libraries/swiper/sliders/emotions-slider.js
+
+
+
+const emotions_slider_wrapper = document.querySelector(".wrapper");
+const emotionsSlider = document.querySelector(".emotions-slider");
+
+if (emotionsSlider) {
+  const swiper = new Swiper(emotionsSlider, {
+    modules: [Keyboard, Pagination,],
+    keyboard: {
+      enabled: true,
+      pageUpDown: false,
+    },
+    pagination: {
+      clickable: true,
+      el: ".emotions-slider__pagination",
+      enabled: true,
+    },
+    loop: true,
+    loopAddBlankSlides: true,
+    spaceBetween: 20,
+    slidesPerView: 1,
+    rewind: true,
+  });
+
+  const prev = document.querySelector(".slider-arrows__button--prev");
+  const next = document.querySelector(".slider-arrows__button--next");
+
+  prev.addEventListener("click", () => {
+    if (emotions_slider_wrapper.classList.contains("emotions-arrows-active")) {
+      swiper.slidePrev();
+    }
+  });
+
+  next.addEventListener("click", () => {
+    if (emotions_slider_wrapper.classList.contains("emotions-arrows-active")) {
+      swiper.slideNext();
+    }
+  });
+}
+
 ;// CONCATENATED MODULE: ./src/js/libraries/swiper/swiper.js
+
 
 
 
