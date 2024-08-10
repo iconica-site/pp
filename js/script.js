@@ -3280,6 +3280,7 @@ const feedbackButton = document.querySelector(".feedback__button");
 const feedbackForm = document.querySelector(".feedback-form");
 const formCloseButton = document.querySelector(".form__close");
 const product = document.querySelector(".product");
+const bee = document.querySelector(".bee");
 
 const compoundBlockTextsMaxHeight = Math.max(...[...compoundBlockTexts].map((text) => text.scrollHeight));
 const productHeight = innerHeight - (parseFloat(getComputedStyle(compoundBlockInner).insetBlockStart) + compoundBlockTextsMaxHeight + responsiveValue(35, 26, 1920, 1440, "fixed-end-value") * 2);
@@ -3292,7 +3293,31 @@ const feedbackBoxWidth = feedbackBox.getBoundingClientRect().width;
 const feedbackBoxLeft = feedbackBox.getBoundingClientRect().left;
 const feedbackBoxBottom = innerHeight - feedbackBox.getBoundingClientRect().bottom;
 
+const feedbackButtonWidth = feedbackButton.getBoundingClientRect().width / innerWidth;
+const feedbackButtonHeight = feedbackButton.getBoundingClientRect().height / innerHeight;
+const feedbackButtonLeft = parseFloat(getComputedStyle(feedbackButton).left);
+const feedbackButtonBottom = parseFloat(getComputedStyle(feedbackButton).bottom);
+
 const emotionsSliderArrowsLeft = emotionsSliderArrows.getBoundingClientRect().left;
+
+feedbackForm.style.setProperty("--scale-x", feedbackButtonWidth);
+feedbackForm.style.setProperty("--scale-y", feedbackButtonHeight);
+feedbackForm.style.setProperty("--left", feedbackButtonLeft);
+feedbackForm.style.setProperty("--bottom", feedbackButtonBottom);
+
+if (MIN_993_PX.matches) {
+  bee.style.setProperty("--bottom", responsiveValue(83, 62, 1920, 1440, "fixed-end-value"));
+  bee.style.setProperty("--left", responsiveValue(714, 525, 1920, 1440, "fixed-end-value"));
+  bee.style.setProperty("--width", responsiveValue(60.45, 45.33, 1920, 1440, "fixed-end-value"));
+  bee.style.setProperty("--rotate-y", 0);
+  bee.style.setProperty("--rotate-z", 0);
+} else {
+  bee.style.setProperty("--top", responsiveValue(-83, -62, 720, 360, "not-fixed"));
+  bee.style.setProperty("--left", responsiveValue(264, 127, 720, 360, "not-fixed"));
+  bee.style.setProperty("--width", responsiveValue(49.89, 24.94, 720, 360, "not-fixed"));
+  bee.style.setProperty("--rotate-y", 0);
+  bee.style.setProperty("--rotate-z", 0);
+}
 
 function initCustomScroll() {
   const locomotive = new locomotive_scroll_esm({
@@ -3322,6 +3347,7 @@ function initCustomScroll() {
     wrapper.classList.toggle("compound-transition", compoundBlock.getBoundingClientRect().top <= 0 && compoundBlock.getBoundingClientRect().bottom >= innerHeight);
     wrapper.classList.toggle("ease-transition", easeBlock.getBoundingClientRect().top <= 0 && easeBlock.getBoundingClientRect().bottom >= innerHeight);
     wrapper.classList.toggle("wait-transition", waitBlock.getBoundingClientRect().top <= 0);
+    wrapper.classList.toggle("wait-transition-decor", waitBlock.getBoundingClientRect().top <= 0 && waitBlock.getBoundingClientRect().bottom >= innerHeight);
     wrapper.classList.toggle("change-inline", compoundBlock.getBoundingClientRect().top <= 0);
     wrapper.classList.toggle("pagination-active", choiceBlock.getBoundingClientRect().top <= 0);
     wrapper.classList.toggle("box-arrows-active", choiceBlock.getBoundingClientRect().top <= 0 && waitBlock.getBoundingClientRect().bottom >= innerHeight);
@@ -3348,7 +3374,116 @@ function initCustomScroll() {
     setProperty(product, "--open-top", easeBlock, 18, -184);
     setProperty(product, "--open-left", easeBlock, 0, 97);
     setProperty(product, "--open-width", easeBlock, 0, 400);
-    setProperty(product, "--translate-divider", withBlock, 1, 0);
+
+    if (MIN_993_PX.matches) {
+      if (compoundBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(bee, "--bottom", choiceBlock, responsiveValue(83, 62, 1920, 1440, "fixed-end-value"), responsiveValue(665, 499, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--left", choiceBlock, responsiveValue(714, 525, 1920, 1440, "fixed-end-value"), responsiveValue(671, 493, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--width", choiceBlock, responsiveValue(60.45, 45.33, 1920, 1440, "fixed-end-value"), responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--translate-x", choiceBlock, 0, 0);
+        setProperty(bee, "--rotate-y", choiceBlock, 0, 0);
+        setProperty(bee, "--rotate", choiceBlock, 0, 0);
+      } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(bee, "--bottom", compoundBlock, responsiveValue(665, 499, 1920, 1440, "fixed-end-value"), responsiveValue(723, 542, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--left", compoundBlock, responsiveValue(671, 493, 1920, 1440, "fixed-end-value"), responsiveValue(-519, -399, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--width", compoundBlock, responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"), responsiveValue(171, 128.25, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--translate-x", compoundBlock, 0, -100);
+        setProperty(bee, "--rotate-y", compoundBlock, 0, 180);
+        setProperty(bee, "--rotate", choiceBlock, 0, -10);
+      } else if (withBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(bee, "--bottom", easeBlock, responsiveValue(723, 542, 1920, 1440, "fixed-end-value"), responsiveValue(675, 506, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--left", easeBlock, responsiveValue(-519, -399, 1920, 1440, "fixed-end-value"), responsiveValue(711, 523, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--width", easeBlock, responsiveValue(171, 128.25, 1920, 1440, "fixed-end-value"), responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--translate-x", easeBlock, -100, 0);
+        setProperty(bee, "--rotate-y", easeBlock, 180, 0);
+        setProperty(bee, "--rotate", easeBlock, -10, 0);
+      } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(bee, "--bottom", withBlock, responsiveValue(675, 506, 1920, 1440, "fixed-end-value"), responsiveValue(733, 542, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--left", withBlock, responsiveValue(711, 523, 1920, 1440, "fixed-end-value"), responsiveValue(-592, -399, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--width", withBlock, responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"), responsiveValue(171, 128.25, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--translate-x", withBlock, 0, -100);
+        setProperty(bee, "--rotate-y", withBlock, 0, 180);
+        setProperty(bee, "--rotate", withBlock, 0, -10);
+      } else if (emotions.getBoundingClientRect().top > innerHeight) {
+        setProperty(bee, "--bottom", waitBlock, responsiveValue(733, 542, 1920, 1440, "fixed-end-value"), responsiveValue(723, 542, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--left", waitBlock, responsiveValue(-592, -399, 1920, 1440, "fixed-end-value"), responsiveValue(-253, -189, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--width", waitBlock, responsiveValue(171, 128.25, 1920, 1440, "fixed-end-value"), responsiveValue(171, 128.25, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--translate-x", waitBlock, -100, -100);
+        setProperty(bee, "--rotate-y", waitBlock, 180, 180);
+        setProperty(bee, "--rotate", waitBlock, -10, 13);
+      } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(bee, "--bottom", emotions, responsiveValue(723, 542, 1920, 1440, "fixed-end-value"), responsiveValue(583, 437, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--left", emotions, responsiveValue(-253, -189, 1920, 1440, "fixed-end-value"), responsiveValue(-593, -444, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--width", emotions, responsiveValue(171, 128.25, 1920, 1440, "fixed-end-value"), responsiveValue(171, 128.25, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--translate-x", emotions, -100, -100);
+        setProperty(bee, "--rotate-y", emotions, 180, 180);
+        setProperty(bee, "--rotate", emotions, 13, -22);
+      } else {
+        setProperty(bee, "--bottom", feedbackBlock, responsiveValue(583, 437, 1920, 1440, "fixed-end-value"), responsiveValue(722, 541, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--left", feedbackBlock, responsiveValue(-593, -444, 1920, 1440, "fixed-end-value"), responsiveValue(-645, -483, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--width", feedbackBlock, responsiveValue(171, 128.25, 1920, 1440, "fixed-end-value"), responsiveValue(147.07, 110.3, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--translate-x", feedbackBlock, -100, -100);
+        setProperty(bee, "--rotate-y", feedbackBlock, 180, 180);
+        setProperty(bee, "--rotate", feedbackBlock, -22, -10);
+      }
+    } else {
+      if (compoundBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(bee, "--top", choiceBlock, responsiveValue(-83, -62, 720, 360, "not-fixed"), responsiveValue(129, 64, 720, 360, "not-fixed"));
+        setProperty(bee, "--left", choiceBlock, responsiveValue(264, 127, 720, 360, "not-fixed"), responsiveValue(264, 127, 720, 360, "not-fixed"));
+        setProperty(bee, "--width", choiceBlock, responsiveValue(49.89, 24.94, 720, 360, "not-fixed"), responsiveValue(49.89, 24.94, 720, 360, "not-fixed"));
+        setProperty(bee, "--translate-x", choiceBlock, 0, 0);
+        setProperty(bee, "--rotate-y", choiceBlock, 0, 0);
+        setProperty(bee, "--rotate", choiceBlock, 0, 9);
+      } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(bee, "--top", compoundBlock, responsiveValue(129, 64, 720, 360, "not-fixed"), responsiveValue(189, 94, 720, 360, "not-fixed"));
+        setProperty(bee, "--left", compoundBlock, responsiveValue(264, 127, 720, 360, "not-fixed"), responsiveValue(-266, -133, 720, 360, "not-fixed"));
+        setProperty(bee, "--width", compoundBlock, responsiveValue(49.89, 24.94, 720, 360, "not-fixed"), responsiveValue(49.89, 24.94, 720, 360, "not-fixed"));
+        setProperty(bee, "--translate-x", compoundBlock, 0, -100);
+        setProperty(bee, "--rotate-y", compoundBlock, 0, 180);
+        setProperty(bee, "--rotate", choiceBlock, 9, -10);
+      } else if (withBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(bee, "--top", easeBlock, responsiveValue(189, 94, 720, 360, "not-fixed"), responsiveValue(109, 45, 720, 360, "not-fixed"));
+        setProperty(bee, "--left", easeBlock, responsiveValue(-266, -133, 720, 360, "not-fixed"), responsiveValue(-14, -12, 720, 360, "not-fixed"));
+        setProperty(bee, "--width", easeBlock, responsiveValue(49.89, 24.94, 720, 360, "not-fixed"), responsiveValue(49.89, 24.94, 720, 360, "not-fixed"));
+        setProperty(bee, "--translate-x", easeBlock, -100, 0);
+        setProperty(bee, "--rotate-y", easeBlock, 180, 0);
+        setProperty(bee, "--rotate", easeBlock, -10, 9);
+      } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(bee, "--top", withBlock, responsiveValue(109, 45, 720, 360, "not-fixed"), responsiveValue(329, 164, 720, 360, "not-fixed"));
+        setProperty(bee, "--left", withBlock, responsiveValue(-14, -12, 720, 360, "not-fixed"), responsiveValue(245, 122, 720, 360, "not-fixed"));
+        setProperty(bee, "--width", withBlock, responsiveValue(49.89, 24.94, 720, 360, "not-fixed"), responsiveValue(49.89, 24.94, 720, 360, "not-fixed"));
+        setProperty(bee, "--translate-x", withBlock, 0, 0);
+        setProperty(bee, "--rotate-y", withBlock, 0, 0);
+        setProperty(bee, "--rotate", withBlock, 9, 9);
+      } else if (emotions.getBoundingClientRect().top > innerHeight) {
+        setProperty(bee, "--top", waitBlock, responsiveValue(329, 164, 720, 360, "not-fixed"), responsiveValue(129, 64, 720, 360, "not-fixed"));
+        setProperty(bee, "--left", waitBlock, responsiveValue(245, 122, 720, 360, "not-fixed"), responsiveValue(-246, -123, 720, 360, "not-fixed"));
+        setProperty(bee, "--width", waitBlock, responsiveValue(49.89, 24.94, 720, 360, "not-fixed"), responsiveValue(49.89, 24.94, 720, 360, "not-fixed"));
+        setProperty(bee, "--translate-x", waitBlock, 0, -100);
+        setProperty(bee, "--rotate-y", waitBlock, 0, 180);
+        setProperty(bee, "--rotate", waitBlock, 9, -10);
+      } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(bee, "--top", emotions, responsiveValue(129, 64, 720, 360, "not-fixed"), responsiveValue(376, 188, 720, 360, "not-fixed"));
+        setProperty(bee, "--left", emotions, responsiveValue(-246, -123, 720, 360, "not-fixed"), responsiveValue(131, 65, 720, 360, "not-fixed"));
+        setProperty(bee, "--width", emotions, responsiveValue(49.89, 24.94, 720, 360, "not-fixed"), responsiveValue(135.19, 67.6, 720, 360, "not-fixed"));
+        setProperty(bee, "--translate-x", emotions, -100, 0);
+        setProperty(bee, "--rotate-y", emotions, 180, 0);
+        setProperty(bee, "--rotate", emotions, -10, 9);
+      } else {
+        setProperty(bee, "--top", feedbackBlock, responsiveValue(376, 188, 720, 360, "not-fixed"), responsiveValue(89, 74, 720, 360, "not-fixed"));
+        setProperty(bee, "--left", feedbackBlock, responsiveValue(131, 65, 720, 360, "not-fixed"), responsiveValue(-246, -123, 720, 360, "not-fixed"));
+        setProperty(bee, "--width", feedbackBlock, responsiveValue(135.19, 67.6, 720, 360, "not-fixed"), responsiveValue(49.89, 24.94, 720, 360, "not-fixed"));
+        setProperty(bee, "--translate-x", feedbackBlock, 0, -100);
+        setProperty(bee, "--rotate-y", feedbackBlock, 0, 180);
+        setProperty(bee, "--rotate", feedbackBlock, 9, -10);
+      }
+    }
+
+    if (withBlock.getBoundingClientRect().top > innerHeight) {
+      setProperty(product, "--translate-divider", easeBlock, 0, 1);
+    } else {
+      setProperty(product, "--translate-divider", withBlock, 1, 0);
+    }
 
     if (emotions.getBoundingClientRect().top > innerHeight) {
       setProperty(sliderArrows, "--inset-inline", choiceBlock, -25, 0);
@@ -3376,7 +3511,6 @@ function initCustomScroll() {
       setProperty(product, "--rotate", choiceBlock, -18, 18);
     } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(product, "--rotate", compoundBlock, 18, 0);
-      setProperty(product, "--rotate-divider", compoundBlock, 1, 0);
       setProperty(product, "--item-opacity", compoundBlock, 0, 1);
       setProperty(product, "--item-left-left", compoundBlock, 50, 0);
       setProperty(product, "--item-left-right", compoundBlock, 50, 100);
@@ -3384,7 +3518,6 @@ function initCustomScroll() {
       setProperty(product, "--item-transform-x", compoundBlock, -50, 0);
     } else if (withBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(product, "--rotate", easeBlock, 0, -15);
-      setProperty(product, "--rotate-divider", easeBlock, 0, 1);
       setProperty(product, "--item-opacity", easeBlock, 1, 0);
       setProperty(product, "--item-left-left", easeBlock, 0, 50);
       setProperty(product, "--item-left-right", easeBlock, 100, 50);
@@ -3392,11 +3525,13 @@ function initCustomScroll() {
       setProperty(product, "--item-transform-x", easeBlock, 0, -50);
     } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(product, "--rotate", withBlock, -15, 0);
-      setProperty(product, "--rotate-divider", withBlock, 1, 0);
+      setProperty(product, "--rotate-divider", withBlock, 0.5, 0);
     } else if (emotions.getBoundingClientRect().top > innerHeight) {
       setProperty(product, "--rotate", waitBlock, 0, MIN_993_PX.matches ? -16 : -12);
+      setProperty(product, "--rotate-divider", waitBlock, 0, 0.5);
     } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(product, "--rotate", emotions, MIN_993_PX.matches ? -16 : -12, 26);
+      setProperty(product, "--rotate-divider", emotions, 0.5, 0);
     } else {
       setProperty(product, "--rotate", feedbackBlock, 26, 0);
     }
@@ -3424,7 +3559,7 @@ function initCustomScroll() {
       setProperty(product, "--blobs-right", withBlock, -34.54, 80.04);
       setProperty(product, "--blobs-width", withBlock, 318.04, 328.29);
       setProperty(product, "--blobs-rotate", withBlock, -18.47, 0);
-      setProperty(product, "--image-translate-divider", waitBlock, 1, 0);
+      setProperty(product, "--image-translate-divider", withBlock, 1, 0);
 
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(product, "--item-translate-x-left", compoundBlock, 0, -166.81);
@@ -3793,7 +3928,51 @@ if (hoverScreen.matches) {
   }
 }
 
+;// CONCATENATED MODULE: ./src/js/scripts/scripts/bee-3d.js
+const bee_3d_bee = document.querySelector(".bee");
+/** @type {HTMLElement} */
+const beeMain = bee_3d_bee.querySelector(".bee__main");
+
+if (beeMain) {
+  const { width, height } = beeMain.getBoundingClientRect();
+
+  for (let index = 0; index < Math.trunc(width); index++) {
+    if (index !== 0) {
+      const bee3D = document.createElement("div");
+      const beeEye = document.createElement("div");
+
+      bee3D.classList.add("bee__3d");
+      bee3D.classList.add("bee__3d--back");
+      beeEye.classList.add("bee__eye");
+
+      bee3D.style.setProperty("--z-index", index - Math.trunc(width));
+      bee3D.style.setProperty("--translate-z", (index - Math.trunc(width)) / 6);
+
+      beeMain.appendChild(bee3D);
+      bee3D.appendChild(beeEye);
+    }
+  }
+
+  for (let index = 0; index < Math.trunc(width); index++) {
+    if (index !== 0) {
+      const bee3D = document.createElement("div");
+      const beeEye = document.createElement("div");
+
+      bee3D.classList.add("bee__3d");
+      bee3D.classList.add("bee__3d--front");
+      beeEye.classList.add("bee__eye");
+
+      bee3D.style.setProperty("--z-index", Math.trunc(width) - index);
+      bee3D.style.setProperty("--translate-z", (Math.trunc(width) - index) / 6);
+
+      beeMain.appendChild(bee3D);
+      bee3D.appendChild(beeEye);
+    }
+  }
+}
+
 ;// CONCATENATED MODULE: ./src/js/scripts/scripts.js
+
 
 
 
