@@ -3787,7 +3787,7 @@ function initCustomScroll() {
 function setProperty(element, property, observer, start, end) {
   const { top, bottom } = observer?.getBoundingClientRect();
 
-  if (top < innerHeight && bottom > 0) element?.style.setProperty(property, calcValueRange(start, end, (innerHeight - top) / innerHeight));
+  if (top < innerHeight * 1.5 && bottom > innerHeight * -0.5) element?.style.setProperty(property, calcValueRange(start, end, (innerHeight - top) / innerHeight));
 }
 
 /**
