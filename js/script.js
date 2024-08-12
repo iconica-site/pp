@@ -3787,11 +3787,7 @@ function initCustomScroll() {
 function setProperty(element, property, observer, start, end) {
   const { top, bottom } = observer?.getBoundingClientRect();
 
-  if (MIN_993_PX.matches) {
-    element?.style.setProperty(property, calcValueRange(start, end, (innerHeight - top) / innerHeight));
-  } else {
-    if (top < innerHeight && bottom > 0) element?.style.setProperty(property, calcValueRange(start, end, (innerHeight - top) / innerHeight));
-  }
+  if (top < innerHeight * 2 && bottom > -innerHeight) element?.style.setProperty(property, calcValueRange(start, end, (innerHeight - top) / innerHeight));
 }
 
 /**
@@ -3934,10 +3930,38 @@ if (hoverScreen.matches && MIN_WIDTH_993PX.matches) {
   }
 }
 
+;// CONCATENATED MODULE: ./src/js/scripts/scripts/send-form.js
+/** @type {HTMLFormElement} */
+const send_form_form = document.querySelector(".form[data-test]");
+
+send_form_form?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  sendForm(send_form_form);
+});
+
+/**
+ * @param {HTMLFormElement} form
+ */
+function sendForm(form) {
+  form.classList.add("form-sended");
+
+  setTimeout(() => {
+    form.querySelector(".form__close")?.click();
+
+    setTimeout(() => {
+      form.classList.remove("form-sended");
+      form.reset();
+    });
+  }, 1000);
+}
+
+window.formSend = sendForm;
+
 ;// CONCATENATED MODULE: ./src/js/scripts/scripts.js
 
 
 // import "./scripts/bee-3d.js";
+
 
 ;// CONCATENATED MODULE: ./node_modules/swiper/shared/ssr-window.esm.mjs
 /**
@@ -13380,7 +13404,55 @@ function EffectCards(_ref) {
 
 
 
+;// CONCATENATED MODULE: ./src/js/libraries/swiper/sliders/emotions-slider.js
+
+
+
+const emotions_slider_wrapper = document.querySelector(".wrapper");
+const emotionsSlider = document.querySelector(".emotions-slider");
+
+let emotions_slider_swiper;
+
+if (emotionsSlider) {
+  emotions_slider_swiper = new Swiper(emotionsSlider, {
+    modules: [Keyboard, Pagination,],
+    keyboard: {
+      enabled: true,
+      pageUpDown: false,
+    },
+    pagination: {
+      clickable: true,
+      el: ".emotions-slider__pagination",
+      enabled: true,
+    },
+    loop: true,
+    loopAddBlankSlides: true,
+    spaceBetween: 20,
+    slidesPerView: 1,
+    rewind: true,
+  });
+
+  const prev = document.querySelector(".slider-arrows__button--prev");
+  const next = document.querySelector(".slider-arrows__button--next");
+
+  prev.addEventListener("click", () => {
+    if (emotions_slider_wrapper.classList.contains("emotions-arrows-active")) {
+      emotions_slider_swiper.slidePrev();
+    }
+  });
+
+  next.addEventListener("click", () => {
+    if (emotions_slider_wrapper.classList.contains("emotions-arrows-active")) {
+      emotions_slider_swiper.slideNext();
+    }
+  });
+}
+
+
+
 ;// CONCATENATED MODULE: ./src/js/libraries/swiper/sliders/main-slider.js
+
+
 
 
 
@@ -13478,9 +13550,17 @@ if (boxSlider) {
       if (main_slider_wrapper.classList.contains("pagination-active")) {
         swiper.slideNext(300, true);
       }
+
+      if (main_slider_wrapper.classList.contains("emotions-arrows-active")) {
+        emotions_slider_swiper.slideNext(300, true);
+      }
     } else if ((angle >= 180 - tolerance) && (angle <= 180 + tolerance)) {
       if (main_slider_wrapper.classList.contains("pagination-active")) {
         swiper.slidePrev(300, true);
+      }
+
+      if (main_slider_wrapper.classList.contains("emotions-arrows-active")) {
+        emotions_slider_swiper.slidePrev(300, true);
       }
     }
   }
@@ -13548,50 +13628,7 @@ if (withSlider) {
   });
 }
 
-;// CONCATENATED MODULE: ./src/js/libraries/swiper/sliders/emotions-slider.js
-
-
-
-const emotions_slider_wrapper = document.querySelector(".wrapper");
-const emotionsSlider = document.querySelector(".emotions-slider");
-
-if (emotionsSlider) {
-  const swiper = new Swiper(emotionsSlider, {
-    modules: [Keyboard, Pagination,],
-    keyboard: {
-      enabled: true,
-      pageUpDown: false,
-    },
-    pagination: {
-      clickable: true,
-      el: ".emotions-slider__pagination",
-      enabled: true,
-    },
-    loop: true,
-    loopAddBlankSlides: true,
-    spaceBetween: 20,
-    slidesPerView: 1,
-    rewind: true,
-  });
-
-  const prev = document.querySelector(".slider-arrows__button--prev");
-  const next = document.querySelector(".slider-arrows__button--next");
-
-  prev.addEventListener("click", () => {
-    if (emotions_slider_wrapper.classList.contains("emotions-arrows-active")) {
-      swiper.slidePrev();
-    }
-  });
-
-  next.addEventListener("click", () => {
-    if (emotions_slider_wrapper.classList.contains("emotions-arrows-active")) {
-      swiper.slideNext();
-    }
-  });
-}
-
 ;// CONCATENATED MODULE: ./src/js/libraries/swiper/swiper.js
-
 
 
 
