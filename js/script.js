@@ -3327,7 +3327,7 @@ function initCustomScroll() {
     direction: "vertical",
     // reloadOnContextChange: true,
     // repeat: true,
-    lerp: 0.1,
+    lerp: MIN_993_PX.matches ? 0.1 : 0.2,
     smartphone: {
       smooth: true,
       direction: "vertical",
