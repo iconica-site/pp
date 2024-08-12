@@ -3325,8 +3325,8 @@ function initCustomScroll() {
     el: document.querySelector(".main"),
     smooth: true,
     direction: "vertical",
-    reloadOnContextChange: true,
-    repeat: true,
+    // reloadOnContextChange: true,
+    // repeat: true,
     lerp: 0.1,
     smartphone: {
       smooth: true,
