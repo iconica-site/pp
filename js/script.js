@@ -3787,7 +3787,11 @@ function initCustomScroll() {
 function setProperty(element, property, observer, start, end) {
   const { top, bottom } = observer?.getBoundingClientRect();
 
-  element?.style.setProperty(property, calcValueRange(start, end, (innerHeight - top) / innerHeight));
+  if (MIN_993_PX.matches) {
+    element?.style.setProperty(property, calcValueRange(start, end, (innerHeight - top) / innerHeight));
+  } else {
+    if (top < innerHeight && bottom > 0) element?.style.setProperty(property, calcValueRange(start, end, (innerHeight - top) / innerHeight));
+  }
 }
 
 /**

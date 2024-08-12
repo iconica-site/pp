@@ -1140,13 +1140,6 @@ button.swiper-pagination-bullet {
   transition-timing-function: linear;
 }
 
-.compound-transition .product__item {
-  transition-property: opacity, inset-block, inset-inline-start, transform, translate, rotate;
-  transition-duration: 300ms;
-  transition-timing-function: linear;
-  will-change: opacity, inset-block, inset-inline-start, transform, translate, rotate;
-}
-
 .wrapper:not(:has(.swiper-slide--color.swiper-slide-active)) .product__item--color,
 .choice-transition:has(.choices__item--chocolate:hover) .product__item--color,
 .choice-transition:has(.choices__item--corn:hover) .product__item--color {
@@ -3148,6 +3141,13 @@ body:not(.loaded) .down {
 
   .slider-pagination {
     display: none;
+  }
+
+  .compound-transition .product__item {
+    transition-property: opacity, inset-block, inset-inline-start, transform, translate, rotate;
+    transition-duration: 300ms;
+    transition-timing-function: linear;
+    will-change: opacity, inset-block, inset-inline-start, transform, translate, rotate;
   }
 
   .wrapper:has(.swiper-slide--chocolate.swiper-slide-active) .product__item--color {
