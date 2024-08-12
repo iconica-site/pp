@@ -3285,6 +3285,7 @@ const bee = document.querySelector(".bee");
 const compoundBlockTextsMaxHeight = Math.max(...[...compoundBlockTexts].map((text) => text.scrollHeight));
 const productHeight = innerHeight - (parseFloat(getComputedStyle(compoundBlockInner).insetBlockStart) + compoundBlockTextsMaxHeight + responsiveValue(35, 26, 1920, 1440, "fixed-end-value") * 2);
 const productWidth = 500 * productHeight / 615;
+const productBottom = innerHeight - (parseFloat(getComputedStyle(compoundBlockInner).insetBlockStart) + compoundBlockTextsMaxHeight + responsiveValue(366, 183, 720, 360, "not-fixed") * 450.43 / 366.1 + responsiveValue(80, 40, 720, 360, "not-fixed"));
 
 const withBlockImagesWrapperBottom = parseFloat(getComputedStyle(withBlockImagesWrapper).insetBlockEnd);
 const withBlockImagesWrapperWidth = parseFloat(getComputedStyle(withBlockImagesWrapper).inlineSize);
@@ -3326,9 +3327,7 @@ function initCustomScroll() {
     direction: "vertical",
     reloadOnContextChange: true,
     repeat: true,
-    // lerp: MIN_993_PX.matches ? 0.05 : 0.1,
     lerp: 0.1,
-    // lerp: 0.3,
     smartphone: {
       smooth: true,
       direction: "vertical",
@@ -3440,7 +3439,7 @@ function initCustomScroll() {
         setProperty(bee, "--width", compoundBlock, responsiveValue(49.89, 24.94, 720, 360, "not-fixed"), responsiveValue(49.89, 24.94, 720, 360, "not-fixed"));
         setProperty(bee, "--translate-x", compoundBlock, 0, -100);
         setProperty(bee, "--rotate-y", compoundBlock, 0, 180);
-        setProperty(bee, "--rotate", choiceBlock, 9, -10);
+        setProperty(bee, "--rotate", compoundBlock, 9, -10);
       } else if (withBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(bee, "--top", easeBlock, responsiveValue(189, 94, 720, 360, "not-fixed"), responsiveValue(109, 45, 720, 360, "not-fixed"));
         setProperty(bee, "--left", easeBlock, responsiveValue(-266, -133, 720, 360, "not-fixed"), responsiveValue(-14, -12, 720, 360, "not-fixed"));
@@ -3723,12 +3722,12 @@ function initCustomScroll() {
         } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--inset-inline", compoundBlock, responsiveValue(172, 86, 720, 360, "not-fixed"), innerWidth / 2);
           setProperty(product, "--translate-x", compoundBlock, 0, 50);
-          setProperty(product, "--bottom", compoundBlock, responsiveValue(178, 89, 720, 360, "not-fixed"), responsiveValue(198, 99, 720, 360, "not-fixed"));
+          setProperty(product, "--bottom", compoundBlock, responsiveValue(178, 89, 720, 360, "not-fixed"), productBottom);
           setProperty(product, "--cap-top", compoundBlock, -90.3, -467.39);
         } else if (withBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--inset-inline", easeBlock, innerWidth / 2, responsiveValue(150, 75, 720, 360, "not-fixed"));
           setProperty(product, "--translate-x", easeBlock, 50, 0);
-          setProperty(product, "--bottom", easeBlock, responsiveValue(198, 99, 720, 360, "not-fixed"), responsiveValue(-146, -73, 720, 360, "not-fixed"));
+          setProperty(product, "--bottom", easeBlock, productBottom, responsiveValue(-146, -73, 720, 360, "not-fixed"));
           setProperty(product, "--width", easeBlock, responsiveValue(366, 183, 720, 360, "not-fixed"), responsiveValue(458, 229, 720, 360, "not-fixed"));
         } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--inset-inline", withBlock, responsiveValue(150, 75, 720, 360, "not-fixed"), responsiveValue(256.23, 128.12, 720, 360, "not-fixed"));
@@ -3866,8 +3865,9 @@ window.addEventListener("load", () => {
 
 ;// CONCATENATED MODULE: ./src/js/scripts/scripts/move.js
 const hoverScreen = matchMedia("(hover: hover)");
+const MIN_WIDTH_993PX = matchMedia("(min-width: 992.1px)");
 
-if (hoverScreen.matches) {
+if (hoverScreen.matches && MIN_WIDTH_993PX.matches) {
   const { body } = document;
   const { style } = body;
 
