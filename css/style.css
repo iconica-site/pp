@@ -2993,13 +2993,14 @@ body:not(.loaded) .down {
   aspect-ratio: 720/1280;
   font-size: 0;
   transform: translate(-50%, -50%);
-  transition-property: inline-size, translate;
+  transition-property: inline-size, aspect-ratio, translate;
   transition-duration: 0.3s;
 }
 
 .form-sended .form__background {
   inline-size: 180.72px;
-  translate: 0 100%;
+  aspect-ratio: 1285.42/842.96;
+  translate: 0 50%;
 }
 
 .form__background::before {
@@ -3013,11 +3014,17 @@ body:not(.loaded) .down {
   border: 1.3888888889vw solid;
   border-radius: 100%;
   transform: translate(-50%, -50%) rotate(-17deg);
+  transition-property: aspect-ratio;
+  transition-duration: 0.3s;
+}
+
+.form-sended .form__background::before {
+  aspect-ratio: 1196.62/665.13;
 }
 
 .form__text {
   position: absolute;
-  inset-block-start: 0;
+  inset-block-start: 27.7777777778vw;
   inset-inline-start: 50%;
   z-index: 1;
   inline-size: -webkit-min-content;
@@ -3746,6 +3753,10 @@ body:not(.loaded) .down {
     transform: rotate(10deg);
   }
 
+  .form-sended .form__background {
+    translate: 0 100%;
+  }
+
   .form__background {
     aspect-ratio: 1285.42/842.96;
   }
@@ -3776,6 +3787,10 @@ body:not(.loaded) .down {
     aspect-ratio: 1196.62/665.13;
     border-width: max(7.5px, 7.5px + 2.5 * ((100vw - 1440px) / 480));
     transform: translate(-50%, -50%) rotate(-9deg);
+  }
+
+  .form__text {
+    inset-block-start: 0;
   }
 
   .input {
