@@ -3282,45 +3282,45 @@ const formCloseButton = document.querySelector(".form__close");
 const product = document.querySelector(".product");
 const bee = document.querySelector(".bee");
 
-const compoundBlockTextsMaxHeight = Math.max(...[...compoundBlockTexts].map((text) => text.scrollHeight));
-const productHeight = innerHeight - (parseFloat(getComputedStyle(compoundBlockInner).insetBlockStart) + compoundBlockTextsMaxHeight + responsiveValue(35, 26, 1920, 1440, "fixed-end-value") * 2);
-const productWidth = 500 * productHeight / 615;
-const productBottom = innerHeight - (parseFloat(getComputedStyle(compoundBlockInner).insetBlockStart) + compoundBlockTextsMaxHeight + responsiveValue(366, 183, 720, 360, "not-fixed") * 450.43 / 366.1 + responsiveValue(80, 40, 720, 360, "not-fixed"));
-
-const withBlockImagesWrapperBottom = parseFloat(getComputedStyle(withBlockImagesWrapper).insetBlockEnd);
-const withBlockImagesWrapperWidth = parseFloat(getComputedStyle(withBlockImagesWrapper).inlineSize);
-
-const feedbackBoxWidth = feedbackBox.getBoundingClientRect().width;
-const feedbackBoxLeft = feedbackBox.getBoundingClientRect().left;
-const feedbackBoxBottom = innerHeight - feedbackBox.getBoundingClientRect().bottom;
-
-const feedbackButtonWidth = feedbackButton.getBoundingClientRect().width / innerWidth;
-const feedbackButtonHeight = feedbackButton.getBoundingClientRect().height / innerHeight;
-const feedbackButtonLeft = parseFloat(getComputedStyle(feedbackButton).left);
-const feedbackButtonBottom = parseFloat(getComputedStyle(feedbackButton).bottom);
-
-const emotionsSliderArrowsLeft = emotionsSliderArrows.getBoundingClientRect().left;
-
-feedbackForm.style.setProperty("--scale-x", feedbackButtonWidth);
-feedbackForm.style.setProperty("--scale-y", feedbackButtonHeight);
-feedbackForm.style.setProperty("--left", feedbackButtonLeft);
-feedbackForm.style.setProperty("--bottom", feedbackButtonBottom);
-
-if (MIN_993_PX.matches) {
-  bee.style.setProperty("--bottom", responsiveValue(83, 62, 1920, 1440, "fixed-end-value"));
-  bee.style.setProperty("--left", responsiveValue(714, 525, 1920, 1440, "fixed-end-value"));
-  bee.style.setProperty("--width", responsiveValue(60.45, 45.33, 1920, 1440, "fixed-end-value"));
-  bee.style.setProperty("--rotate-y", 0);
-  bee.style.setProperty("--rotate-z", 0);
-} else {
-  bee.style.setProperty("--top", responsiveValue(-83, -62, 720, 360, "not-fixed"));
-  bee.style.setProperty("--left", responsiveValue(264, 127, 720, 360, "not-fixed"));
-  bee.style.setProperty("--width", responsiveValue(49.89, 24.94, 720, 360, "not-fixed"));
-  bee.style.setProperty("--rotate-y", 0);
-  bee.style.setProperty("--rotate-z", 0);
-}
-
 function initCustomScroll() {
+  const compoundBlockTextsMaxHeight = Math.max(...[...compoundBlockTexts].map((text) => text.scrollHeight));
+  const productHeight = innerHeight - (parseFloat(getComputedStyle(compoundBlockInner).insetBlockStart) + compoundBlockTextsMaxHeight + responsiveValue(35, 26, 1920, 1440, "fixed-end-value") * 2);
+  const productWidth = 500 * productHeight / 615;
+  const productBottom = innerHeight - (parseFloat(getComputedStyle(compoundBlockInner).insetBlockStart) + compoundBlockTextsMaxHeight + responsiveValue(366, 183, 720, 360, "not-fixed") * 450.43 / 366.1 + responsiveValue(80, 40, 720, 360, "not-fixed"));
+
+  const withBlockImagesWrapperBottom = parseFloat(getComputedStyle(withBlockImagesWrapper).insetBlockEnd);
+  const withBlockImagesWrapperWidth = parseFloat(getComputedStyle(withBlockImagesWrapper).inlineSize);
+
+  const feedbackBoxWidth = feedbackBox.getBoundingClientRect().width;
+  const feedbackBoxLeft = feedbackBox.getBoundingClientRect().left;
+  const feedbackBoxBottom = innerHeight - feedbackBox.getBoundingClientRect().bottom;
+
+  const feedbackButtonWidth = feedbackButton.getBoundingClientRect().width / innerWidth;
+  const feedbackButtonHeight = feedbackButton.getBoundingClientRect().height / innerHeight;
+  const feedbackButtonLeft = parseFloat(getComputedStyle(feedbackButton).left);
+  const feedbackButtonBottom = parseFloat(getComputedStyle(feedbackButton).bottom);
+
+  const emotionsSliderArrowsLeft = emotionsSliderArrows.getBoundingClientRect().left;
+
+  feedbackForm.style.setProperty("--scale-x", feedbackButtonWidth);
+  feedbackForm.style.setProperty("--scale-y", feedbackButtonHeight);
+  feedbackForm.style.setProperty("--left", feedbackButtonLeft);
+  feedbackForm.style.setProperty("--bottom", feedbackButtonBottom);
+
+  if (MIN_993_PX.matches) {
+    bee.style.setProperty("--bottom", responsiveValue(83, 62, 1920, 1440, "fixed-end-value"));
+    bee.style.setProperty("--left", responsiveValue(714, 525, 1920, 1440, "fixed-end-value"));
+    bee.style.setProperty("--width", responsiveValue(60.45, 45.33, 1920, 1440, "fixed-end-value"));
+    bee.style.setProperty("--rotate-y", 0);
+    bee.style.setProperty("--rotate-z", 0);
+  } else {
+    bee.style.setProperty("--top", responsiveValue(-83, -62, 720, 360, "not-fixed"));
+    bee.style.setProperty("--left", responsiveValue(264, 127, 720, 360, "not-fixed"));
+    bee.style.setProperty("--width", responsiveValue(49.89, 24.94, 720, 360, "not-fixed"));
+    bee.style.setProperty("--rotate-y", 0);
+    bee.style.setProperty("--rotate-z", 0);
+  }
+
   const locomotive = new locomotive_scroll_esm({
     el: document.querySelector(".main"),
     smooth: true,
@@ -3385,14 +3385,14 @@ function initCustomScroll() {
       } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(bee, "--bottom", compoundBlock, responsiveValue(665, 499, 1920, 1440, "fixed-end-value"), responsiveValue(723, 542, 1920, 1440, "fixed-end-value"));
         setProperty(bee, "--left", compoundBlock, responsiveValue(671, 493, 1920, 1440, "fixed-end-value"), responsiveValue(-519, -399, 1920, 1440, "fixed-end-value"));
-        setProperty(bee, "--width", compoundBlock, responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"), responsiveValue(171, 128.25, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--width", compoundBlock, responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"), responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"));
         setProperty(bee, "--translate-x", compoundBlock, 0, -100);
         setProperty(bee, "--rotate-y", compoundBlock, 0, 180);
         setProperty(bee, "--rotate", choiceBlock, 0, -10);
       } else if (withBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(bee, "--bottom", easeBlock, responsiveValue(723, 542, 1920, 1440, "fixed-end-value"), responsiveValue(675, 506, 1920, 1440, "fixed-end-value"));
         setProperty(bee, "--left", easeBlock, responsiveValue(-519, -399, 1920, 1440, "fixed-end-value"), responsiveValue(711, 523, 1920, 1440, "fixed-end-value"));
-        setProperty(bee, "--width", easeBlock, responsiveValue(171, 128.25, 1920, 1440, "fixed-end-value"), responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--width", easeBlock, responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"), responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"));
         setProperty(bee, "--translate-x", easeBlock, -100, 0);
         setProperty(bee, "--rotate-y", easeBlock, 180, 0);
         setProperty(bee, "--rotate", easeBlock, -10, 0);
@@ -3655,6 +3655,7 @@ function initCustomScroll() {
           setProperty(product, "--inset-inline", compoundBlock, responsiveValue(381, 301, 1440, 1280, "fixed-both"), innerWidth / 2);
           setProperty(product, "--translate-x", compoundBlock, 0, 50);
           setProperty(product, "--bottom", compoundBlock, responsiveValue(164, 123, 1920, 1440, "fixed-end-value"), responsiveValue(35, 26, 1920, 1440, "fixed-end-value"));
+          setProperty(product, "--width", compoundBlock, responsiveValue(423, 317, 1920, 1440, "fixed-end-value"), productWidth);
           setProperty(product, "--cap-top", compoundBlock, -78.37, -279.74);
         } else if (withBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--inset-inline", easeBlock, innerWidth / 2, responsiveValue(372, 292, 1440, 1280, "fixed-both"));
@@ -3662,7 +3663,7 @@ function initCustomScroll() {
           setProperty(product, "--bottom", easeBlock, responsiveValue(35, 26, 1920, 1440, "fixed-end-value"), responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--width", easeBlock, productWidth, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"));
         } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", withBlock, responsiveValue(496, 372, 1920, 1440, "fixed-end-value"), innerWidth / 2);
+          setProperty(product, "--inset-inline", withBlock, responsiveValue(372, 292, 1440, 1280, "fixed-both"), innerWidth / 2);
           setProperty(product, "--translate-x", withBlock, 0, 50);
           setProperty(product, "--bottom", withBlock, responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperBottom);
           setProperty(product, "--width", withBlock, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperWidth);
@@ -3689,6 +3690,7 @@ function initCustomScroll() {
           setProperty(product, "--inset-inline", compoundBlock, responsiveValue(301, 173, 1280, 1024, "not-fixed"), innerWidth / 2);
           setProperty(product, "--translate-x", compoundBlock, 0, 50);
           setProperty(product, "--bottom", compoundBlock, responsiveValue(164, 123, 1920, 1440, "fixed-end-value"), responsiveValue(35, 26, 1920, 1440, "fixed-end-value"));
+          setProperty(product, "--width", compoundBlock, responsiveValue(423, 317, 1920, 1440, "fixed-end-value"), productWidth);
           setProperty(product, "--cap-top", compoundBlock, -78.37, -279.74);
         } else if (withBlock.getBoundingClientRect().top > innerHeight) {
           setProperty(product, "--inset-inline", easeBlock, innerWidth / 2, responsiveValue(292, 164, 1280, 1024, "not-fixed"));
@@ -3696,7 +3698,7 @@ function initCustomScroll() {
           setProperty(product, "--bottom", easeBlock, responsiveValue(35, 26, 1920, 1440, "fixed-end-value"), responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"));
           setProperty(product, "--width", easeBlock, productWidth, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"));
         } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", withBlock, responsiveValue(496, 372, 1920, 1440, "fixed-end-value"), innerWidth / 2);
+          setProperty(product, "--inset-inline", withBlock, responsiveValue(292, 164, 1280, 1024, "not-fixed"), innerWidth / 2);
           setProperty(product, "--translate-x", withBlock, 0, 50);
           setProperty(product, "--bottom", withBlock, responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperBottom);
           setProperty(product, "--width", withBlock, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperWidth);
@@ -3783,9 +3785,9 @@ function initCustomScroll() {
  * @param {number} end
  */
 function setProperty(element, property, observer, start, end) {
-  const top = observer?.getBoundingClientRect().top;
+  const { top, bottom } = observer?.getBoundingClientRect();
 
-  element?.style.setProperty(property, calcValueRange(start, end, (innerHeight - top) / innerHeight));
+  if (top < innerHeight && bottom > 0) element?.style.setProperty(property, calcValueRange(start, end, (innerHeight - top) / innerHeight));
 }
 
 /**
@@ -3928,53 +3930,10 @@ if (hoverScreen.matches && MIN_WIDTH_993PX.matches) {
   }
 }
 
-;// CONCATENATED MODULE: ./src/js/scripts/scripts/bee-3d.js
-const bee_3d_bee = document.querySelector(".bee");
-/** @type {HTMLElement} */
-const beeMain = bee_3d_bee.querySelector(".bee__main");
-
-if (beeMain) {
-  const { width, height } = beeMain.getBoundingClientRect();
-
-  for (let index = 0; index < Math.trunc(width); index++) {
-    if (index !== 0) {
-      const bee3D = document.createElement("div");
-      const beeEye = document.createElement("div");
-
-      bee3D.classList.add("bee__3d");
-      bee3D.classList.add("bee__3d--back");
-      beeEye.classList.add("bee__eye");
-
-      bee3D.style.setProperty("--z-index", index - Math.trunc(width));
-      bee3D.style.setProperty("--translate-z", (index - Math.trunc(width)) / 6);
-
-      beeMain.appendChild(bee3D);
-      bee3D.appendChild(beeEye);
-    }
-  }
-
-  for (let index = 0; index < Math.trunc(width); index++) {
-    if (index !== 0) {
-      const bee3D = document.createElement("div");
-      const beeEye = document.createElement("div");
-
-      bee3D.classList.add("bee__3d");
-      bee3D.classList.add("bee__3d--front");
-      beeEye.classList.add("bee__eye");
-
-      bee3D.style.setProperty("--z-index", Math.trunc(width) - index);
-      bee3D.style.setProperty("--translate-z", (Math.trunc(width) - index) / 6);
-
-      beeMain.appendChild(bee3D);
-      bee3D.appendChild(beeEye);
-    }
-  }
-}
-
 ;// CONCATENATED MODULE: ./src/js/scripts/scripts.js
 
 
-
+// import "./scripts/bee-3d.js";
 
 ;// CONCATENATED MODULE: ./node_modules/swiper/shared/ssr-window.esm.mjs
 /**
