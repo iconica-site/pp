@@ -1082,13 +1082,6 @@ button.swiper-pagination-bullet {
   z-index: 1;
   opacity: var(--opacity, 0);
   pointer-events: none;
-  transition-property: translate;
-  transition-duration: 0.1s;
-}
-
-.wrapper:has(.feedback--active) .product {
-  translate: 0 150svh;
-  transition-delay: 0.1s;
 }
 
 .product__wrapper {
@@ -1099,6 +1092,13 @@ button.swiper-pagination-bullet {
   inline-size: calc(var(--width, 143) * 1px);
   aspect-ratio: 500/615;
   transform: translateX(calc(var(--translate-x, 0) * 1%)) rotate(calc(var(--rotate, -18) * 1deg));
+  transition-property: translate;
+  transition-duration: 0.1s;
+}
+
+.wrapper:has(.feedback--active) .product__wrapper {
+  translate: 0 150svh;
+  transition-delay: 0.1s;
 }
 
 .choice-transition .product__wrapper {
@@ -1135,7 +1135,7 @@ button.swiper-pagination-bullet {
   z-index: 2;
   aspect-ratio: inherit;
   transform: translateX(-50%) rotate(calc(var(--product-wrapper-rotate, 0) * var(--rotate-divider, 0.5) / 4 * 1deg));
-  transition-property: opacity;
+  transition-property: opacity, inset-block, inset-inline-start, transform, translate, rotate;
   transition-duration: 300ms;
   transition-timing-function: linear;
 }
@@ -1144,24 +1144,27 @@ button.swiper-pagination-bullet {
 .choice-transition:has(.choices__item--chocolate:hover) .product__item--color,
 .choice-transition:has(.choices__item--corn:hover) .product__item--color {
   z-index: 0;
-  opacity: var(--item-opacity, 0);
-  transform: translateX(calc(var(--item-transform-x, -50) * 1%)) rotate(calc(var(--product-wrapper-rotate, 0) * var(--rotate-divider, 0.5) / 4 * 1deg));
+  opacity: 0;
 }
 
-.wrapper:has(.swiper-slide--chocolate.swiper-slide-active) .product__item--color {
+.compound-transition:has(.swiper-slide--chocolate.swiper-slide-active) .product__item--color {
   inset-block: calc(var(--item-top-left, 0) / 615 * 100%) calc(var(--item-bottom-left, 0) / 615 * 100%);
   inset-inline-start: calc(var(--item-left-left, 50) * 1%);
   z-index: 1;
   translate: calc(var(--item-translate-x-left, 0) / 210.49 * 100%) 0;
   rotate: calc(var(--item-rotate, 0) * -1deg);
+  opacity: var(--item-opacity, 0);
+  transform: translateX(calc(var(--item-transform-x, -50) * 1%)) rotate(calc(var(--product-wrapper-rotate, 0) * var(--rotate-divider, 0.5) / 4 * 1deg));
 }
 
-.wrapper:has(.swiper-slide--corn.swiper-slide-active) .product__item--color {
+.compound-transition:has(.swiper-slide--corn.swiper-slide-active) .product__item--color {
   inset-block: calc(var(--item-top-right, 0) / 615 * 100%) calc(var(--item-bottom-right, 0) / 615 * 100%);
   inset-inline-start: calc(var(--item-left-right, 50) * 1%);
   z-index: 0;
   translate: calc(var(--item-translate-x-right, 0) / 210.49 * 100%) 0;
   rotate: calc(var(--item-rotate, 0) * 1deg);
+  opacity: var(--item-opacity, 0);
+  transform: translateX(calc(var(--item-transform-x, -50) * 1%)) rotate(calc(var(--product-wrapper-rotate, 0) * var(--rotate-divider, 0.5) / 4 * 1deg));
 }
 
 .compound-transition:has(.swiper-slide--corn.swiper-slide-active) .product__item--color::before {
@@ -1188,24 +1191,27 @@ button.swiper-pagination-bullet {
 .choice-transition:has(.choices__item--color:hover) .product__item--chocolate,
 .choice-transition:has(.choices__item--corn:hover) .product__item--chocolate {
   z-index: 0;
-  opacity: var(--item-opacity, 0);
-  transform: translateX(calc(var(--item-transform-x, -50) * 1%)) rotate(calc(var(--product-wrapper-rotate, 0) * var(--rotate-divider, 0.5) / 4 * 1deg));
+  opacity: 0;
 }
 
-.wrapper:has(.swiper-slide--corn.swiper-slide-active) .product__item--chocolate {
+.compound-transition:has(.swiper-slide--corn.swiper-slide-active) .product__item--chocolate {
   inset-block: calc(var(--item-top-left, 0) / 615 * 100%) calc(var(--item-bottom-left, 0) / 615 * 100%);
   inset-inline-start: calc(var(--item-left-left, 50) * 1%);
   z-index: 1;
   translate: calc(var(--item-translate-x-left, 0) / 210.49 * 100%) 0;
   rotate: calc(var(--item-rotate, 0) * -1deg);
+  opacity: var(--item-opacity, 0);
+  transform: translateX(calc(var(--item-transform-x, -50) * 1%)) rotate(calc(var(--product-wrapper-rotate, 0) * var(--rotate-divider, 0.5) / 4 * 1deg));
 }
 
-.wrapper:has(.swiper-slide--color.swiper-slide-active) .product__item--chocolate {
+.compound-transition:has(.swiper-slide--color.swiper-slide-active) .product__item--chocolate {
   inset-block: calc(var(--item-top-right, 0) / 615 * 100%) calc(var(--item-bottom-right, 0) / 615 * 100%);
   inset-inline-start: calc(var(--item-left-right, 50) * 1%);
   z-index: 0;
   translate: calc(var(--item-translate-x-right, 0) / 210.49 * 100%) 0;
   rotate: calc(var(--item-rotate, 0) * 1deg);
+  opacity: var(--item-opacity, 0);
+  transform: translateX(calc(var(--item-transform-x, -50) * 1%)) rotate(calc(var(--product-wrapper-rotate, 0) * var(--rotate-divider, 0.5) / 4 * 1deg));
 }
 
 .compound-transition:has(.swiper-slide--color.swiper-slide-active) .product__item--chocolate::before {
@@ -1232,24 +1238,27 @@ button.swiper-pagination-bullet {
 .choice-transition:has(.choices__item--color:hover) .product__item--corn,
 .choice-transition:has(.choices__item--chocolate:hover) .product__item--corn {
   z-index: 0;
-  opacity: var(--item-opacity, 0);
-  transform: translateX(calc(var(--item-transform-x, -50) * 1%)) rotate(calc(var(--product-wrapper-rotate, 0) * var(--rotate-divider, 0.5) / 4 * 1deg));
+  opacity: 0;
 }
 
-.wrapper:has(.swiper-slide--color.swiper-slide-active) .product__item--corn {
+.compound-transition:has(.swiper-slide--color.swiper-slide-active) .product__item--corn {
   inset-block: calc(var(--item-top-left, 0) / 615 * 100%) calc(var(--item-bottom-left, 0) / 615 * 100%);
   inset-inline-start: calc(var(--item-left-left, 50) * 1%);
   z-index: 1;
   translate: calc(var(--item-translate-x-left, 0) / 210.49 * 100%) 0;
   rotate: calc(var(--item-rotate, 0) * -1deg);
+  opacity: var(--item-opacity, 0);
+  transform: translateX(calc(var(--item-transform-x, -50) * 1%)) rotate(calc(var(--product-wrapper-rotate, 0) * var(--rotate-divider, 0.5) / 4 * 1deg));
 }
 
-.wrapper:has(.swiper-slide--chocolate.swiper-slide-active) .product__item--corn {
+.compound-transition:has(.swiper-slide--chocolate.swiper-slide-active) .product__item--corn {
   inset-block: calc(var(--item-top-right, 0) / 615 * 100%) calc(var(--item-bottom-right, 0) / 615 * 100%);
   inset-inline-start: calc(var(--item-left-right, 50) * 1%);
   z-index: 0;
   translate: calc(var(--item-translate-x-right, 0) / 210.49 * 100%) 0;
   rotate: calc(var(--item-rotate, 0) * 1deg);
+  opacity: var(--item-opacity, 0);
+  transform: translateX(calc(var(--item-transform-x, -50) * 1%)) rotate(calc(var(--product-wrapper-rotate, 0) * var(--rotate-divider, 0.5) / 4 * 1deg));
 }
 
 .compound-transition:has(.swiper-slide--chocolate.swiper-slide-active) .product__item--corn::before {
@@ -1429,15 +1438,12 @@ button.swiper-pagination-bullet {
   aspect-ratio: 198.64/583.45;
   translate: calc(var(--x) / -4 * var(--translate-divider, 0) * 1px) calc(var(--y) / -10 * var(--translate-divider, 0) * 1px);
   will-change: inset-block-start, inset-inline-start, transform;
-}
-
-.ease-transition .product__spoon {
   transition-property: inset-block-start, inset-inline-start, transform;
   transition-duration: 0.3s;
   transition-timing-function: linear;
 }
 
-.wrapper:has(.ease[style*="--opacity: 1"]) .product__spoon {
+.ease-transition:has(.ease[style*="--opacity: 1"]) .product__spoon {
   inset-block-start: calc(var(--spoon-top, -446.57) / 563.58 * 100%);
   inset-inline-start: calc(var(--spoon-left, 101.22) / 458.19 * 100%);
   transform: rotate(calc(var(--spoon-rotate, 13.32) * 1deg));
@@ -1458,15 +1464,12 @@ button.swiper-pagination-bullet {
   aspect-ratio: 414.14/513.77;
   translate: calc(var(--x) / 4 * var(--translate-divider, 0) * 1px) calc((var(--y) + 100) / 10 * var(--translate-divider, 0) * 1px);
   will-change: inset-block-start, inset-inline-start, inline-size;
-}
-
-.ease-transition .product__basis {
   transition-property: inset-block-start, inset-inline-start, inline-size;
   transition-duration: 0.3s;
   transition-timing-function: linear;
 }
 
-.wrapper:has(.ease[style*="--opacity: 1"]) .product__basis {
+.ease-transition:has(.ease[style*="--opacity: 1"]) .product__basis {
   inset-block-start: calc(var(--basis-top, -466.51) / 563.58 * 100%);
   inset-inline-start: calc(var(--basis-left, -4.14) / 458.19 * 100%);
   inline-size: calc(var(--basis-width, 388.55) / 458.19 * 100%);
@@ -1489,15 +1492,12 @@ button.swiper-pagination-bullet {
   transform: translateY(-50%) rotate(0deg);
   translate: calc(var(--x) / -4 * var(--translate-divider, 0) * 1px) calc(var(--y) / -10 * var(--translate-divider, 0) * 1px);
   will-change: opacity, transform;
-}
-
-.ease-transition .product__blobs {
   transition-property: opacity, transform;
   transition-duration: 0.3s;
   transition-timing-function: linear;
 }
 
-.wrapper:has(.ease[style*="--opacity: 1"]) .product__blobs {
+.ease-transition:has(.ease[style*="--opacity: 1"]) .product__blobs {
   opacity: 1;
   transform: translateY(0) rotate(calc(var(--blobs-rotate, -12.75) * 1deg));
   transition-duration: 0.5s;
@@ -1665,26 +1665,6 @@ body::after {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.wrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-block-size: 100%;
-  overflow: hidden;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-}
-
-.container {
-  max-inline-size: 1920px;
-  margin-inline: auto;
-  padding-inline: 16px;
 }
 
 .hero {
@@ -3209,27 +3189,27 @@ body:not(.loaded) .down {
     will-change: opacity, inset-block, inset-inline-start, transform, translate, rotate;
   }
 
-  .wrapper:has(.swiper-slide--chocolate.swiper-slide-active) .product__item--color {
+  .compound-transition:has(.swiper-slide--chocolate.swiper-slide-active) .product__item--color {
     translate: calc(var(--item-translate-x-left, 0) / 264.67 * 100%) 0;
   }
 
-  .wrapper:has(.swiper-slide--corn.swiper-slide-active) .product__item--color {
+  .compound-transition:has(.swiper-slide--corn.swiper-slide-active) .product__item--color {
     translate: calc(var(--item-translate-x-right, 0) / 264.67 * 100%) 0;
   }
 
-  .wrapper:has(.swiper-slide--corn.swiper-slide-active) .product__item--chocolate {
+  .compound-transition:has(.swiper-slide--corn.swiper-slide-active) .product__item--chocolate {
     translate: calc(var(--item-translate-x-left, 0) / 264.67 * 100%) 0;
   }
 
-  .wrapper:has(.swiper-slide--color.swiper-slide-active) .product__item--chocolate {
+  .compound-transition:has(.swiper-slide--color.swiper-slide-active) .product__item--chocolate {
     translate: calc(var(--item-translate-x-left, 0) / 264.67 * 100%) 0;
   }
 
-  .wrapper:has(.swiper-slide--color.swiper-slide-active) .product__item--corn {
+  .compound-transition:has(.swiper-slide--color.swiper-slide-active) .product__item--corn {
     translate: calc(var(--item-translate-x-left, 0) / 264.67 * 100%) 0;
   }
 
-  .wrapper:has(.swiper-slide--chocolate.swiper-slide-active) .product__item--corn {
+  .compound-transition:has(.swiper-slide--chocolate.swiper-slide-active) .product__item--corn {
     translate: calc(var(--item-translate-x-left, 0) / 264.67 * 100%) 0;
   }
 
@@ -3254,7 +3234,7 @@ body:not(.loaded) .down {
     inset-block-start: -20.0475800675%;
   }
 
-  .wrapper:has(.ease[style*="--opacity: 1"]) .product__spoon {
+  .ease-transition:has(.ease[style*="--opacity: 1"]) .product__spoon {
     inset-block-start: calc(var(--spoon-top, -395.58) / 600.7 * 100%);
     inset-inline-start: calc(var(--spoon-left, -44) / 488.37 * 100%);
     transform: rotate(calc(var(--spoon-rotate, -10.12) * 1deg));
@@ -3264,13 +3244,13 @@ body:not(.loaded) .down {
     inline-size: 40.6740790794%;
   }
 
-  .wrapper:has(.ease[style*="--opacity: 1"]) .product__basis {
+  .ease-transition:has(.ease[style*="--opacity: 1"]) .product__basis {
     inset-block-start: calc(var(--basis-top, -498.6) / 600.7 * 100%);
     inset-inline-start: calc(var(--basis-left, -31.56) / 488.37 * 100%);
     inline-size: calc(var(--basis-width, 414.14) / 488.37 * 100%);
   }
 
-  .wrapper:has(.ease[style*="--opacity: 1"]) .product__blobs {
+  .ease-transition:has(.ease[style*="--opacity: 1"]) .product__blobs {
     transform: translateY(0) rotate(calc(var(--blobs-rotate, -18.47) * 1deg));
   }
 
