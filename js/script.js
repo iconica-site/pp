@@ -3555,11 +3555,14 @@ function initCustomScroll() {
       setProperty(product, "--basis-top", withBlock, -498.6, 14.62);
       setProperty(product, "--basis-left", withBlock, -31.56, 80.04);
       setProperty(product, "--basis-width", withBlock, 414.14, 328.29);
-      setProperty(product, "--blobs-top", withBlock, -567.26, 14.62);
-      setProperty(product, "--blobs-right", withBlock, -34.54, 80.04);
-      setProperty(product, "--blobs-width", withBlock, 318.04, 328.29);
-      setProperty(product, "--blobs-rotate", withBlock, -18.47, 0);
       setProperty(product, "--image-translate-divider", withBlock, 1, 0);
+
+      if (withBlock.getBoundingClientRect().top < innerHeight) {
+        setProperty(product, "--blobs-top", easeBlock, -567.26, 14.62);
+        setProperty(product, "--blobs-right", easeBlock, -34.54, 80.04);
+        setProperty(product, "--blobs-width", easeBlock, 318.04, 328.29);
+        setProperty(product, "--blobs-rotate", easeBlock, -18.47, 0);
+      }
 
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(product, "--item-translate-x-left", compoundBlock, 0, -166.81);
