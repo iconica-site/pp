@@ -1667,6 +1667,26 @@ body::after {
   background-size: cover;
 }
 
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-block-size: 100%;
+  overflow: hidden;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.container {
+  max-inline-size: 1920px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
 .hero {
   position: relative;
   min-block-size: 100svh;
