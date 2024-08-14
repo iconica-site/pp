@@ -1092,6 +1092,7 @@ button.swiper-pagination-bullet {
   inline-size: calc(var(--width, 143) * 1px);
   aspect-ratio: 500/615;
   transform: translateX(calc(var(--translate-x, 0) * 1%)) rotate(calc(var(--rotate, -18) * 1deg));
+  will-change: inset-block-end, inset-inline-start, inset-inline-end, inline-size, transform, translate;
   transition-property: translate;
   transition-duration: 0.1s;
 }
