@@ -3325,9 +3325,6 @@ function initCustomScroll() {
     el: document.querySelector(".main"),
     smooth: true,
     direction: "vertical",
-    // reloadOnContextChange: true,
-    // repeat: true,
-    // lerp: MIN_993_PX.matches ? 0.1 : 0.2,
     lerp: 0.1,
     smartphone: {
       smooth: true,
@@ -3345,7 +3342,9 @@ function initCustomScroll() {
 
     wrapper.classList.toggle("choice-transition", choiceBlock.getBoundingClientRect().top <= 0 && choiceBlock.getBoundingClientRect().bottom >= innerHeight);
     wrapper.classList.toggle("compound-transition", compoundBlock.getBoundingClientRect().top <= 0 && compoundBlock.getBoundingClientRect().bottom >= innerHeight);
+    wrapper.classList.toggle("product-transition", compoundBlock.getBoundingClientRect().top <= 250 && compoundBlock.getBoundingClientRect().bottom >= innerHeight - 250);
     wrapper.classList.toggle("ease-transition", easeBlock.getBoundingClientRect().top <= 0 && easeBlock.getBoundingClientRect().bottom >= innerHeight);
+    wrapper.classList.toggle("with-transition", easeBlock.getBoundingClientRect().bottom < innerHeight);
     wrapper.classList.toggle("wait-transition", waitBlock.getBoundingClientRect().top <= 0);
     wrapper.classList.toggle("wait-transition-decor", waitBlock.getBoundingClientRect().top <= 0 && waitBlock.getBoundingClientRect().bottom >= innerHeight);
     wrapper.classList.toggle("change-inline", compoundBlock.getBoundingClientRect().top <= 0);
@@ -3385,14 +3384,14 @@ function initCustomScroll() {
         setProperty(bee, "--rotate", choiceBlock, 0, 0);
       } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(bee, "--bottom", compoundBlock, responsiveValue(665, 499, 1920, 1440, "fixed-end-value"), responsiveValue(723, 542, 1920, 1440, "fixed-end-value"));
-        setProperty(bee, "--left", compoundBlock, responsiveValue(671, 493, 1920, 1440, "fixed-end-value"), responsiveValue(-519, -399, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--left", compoundBlock, responsiveValue(671, 493, 1920, 1440, "fixed-end-value"), responsiveValue(-600, -500, 1920, 1440, "fixed-end-value"));
         setProperty(bee, "--width", compoundBlock, responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"), responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"));
         setProperty(bee, "--translate-x", compoundBlock, 0, -100);
         setProperty(bee, "--rotate-y", compoundBlock, 0, 180);
         setProperty(bee, "--rotate", choiceBlock, 0, -10);
       } else if (withBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(bee, "--bottom", easeBlock, responsiveValue(723, 542, 1920, 1440, "fixed-end-value"), responsiveValue(675, 506, 1920, 1440, "fixed-end-value"));
-        setProperty(bee, "--left", easeBlock, responsiveValue(-519, -399, 1920, 1440, "fixed-end-value"), responsiveValue(711, 523, 1920, 1440, "fixed-end-value"));
+        setProperty(bee, "--left", easeBlock, responsiveValue(-600, -500, 1920, 1440, "fixed-end-value"), responsiveValue(711, 523, 1920, 1440, "fixed-end-value"));
         setProperty(bee, "--width", easeBlock, responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"), responsiveValue(124.53, 93.4, 1920, 1440, "fixed-end-value"));
         setProperty(bee, "--translate-x", easeBlock, -100, 0);
         setProperty(bee, "--rotate-y", easeBlock, 180, 0);
@@ -3511,18 +3510,18 @@ function initCustomScroll() {
       setProperty(product, "--rotate", choiceBlock, -18, 18);
     } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(product, "--rotate", compoundBlock, 18, 0);
-      setProperty(product, "--item-opacity", compoundBlock, 0, 1);
-      setProperty(product, "--item-left-left", compoundBlock, 50, 0);
-      setProperty(product, "--item-left-right", compoundBlock, 50, 100);
-      setProperty(product, "--item-rotate", compoundBlock, 0, 15);
-      setProperty(product, "--item-transform-x", compoundBlock, -50, 0);
+      // setProperty(product, "--item-opacity", compoundBlock, 0, 1);
+      // setProperty(product, "--item-left-left", compoundBlock, 50, 0);
+      // setProperty(product, "--item-left-right", compoundBlock, 50, 100);
+      // setProperty(product, "--item-rotate", compoundBlock, 0, 15);
+      // setProperty(product, "--item-transform-x", compoundBlock, -50, 0);
     } else if (withBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(product, "--rotate", easeBlock, 0, -15);
-      setProperty(product, "--item-opacity", easeBlock, 1, 0);
-      setProperty(product, "--item-left-left", easeBlock, 0, 50);
-      setProperty(product, "--item-left-right", easeBlock, 100, 50);
-      setProperty(product, "--item-rotate", easeBlock, 15, 0);
-      setProperty(product, "--item-transform-x", easeBlock, 0, -50);
+      // setProperty(product, "--item-opacity", easeBlock, 1, 0);
+      // setProperty(product, "--item-left-left", easeBlock, 0, 50);
+      // setProperty(product, "--item-left-right", easeBlock, 100, 50);
+      // setProperty(product, "--item-rotate", easeBlock, 15, 0);
+      // setProperty(product, "--item-transform-x", easeBlock, 0, -50);
     } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(product, "--rotate", withBlock, -15, 0);
       setProperty(product, "--rotate-divider", withBlock, 0.5, 0);
@@ -3549,20 +3548,7 @@ function initCustomScroll() {
     }
 
     if (MIN_993_PX.matches) {
-      setProperty(product, "--spoon-top", withBlock, -395.58, 14.62);
-      setProperty(product, "--spoon-left", withBlock, -44, 80.04);
-      setProperty(product, "--spoon-rotate", withBlock, -10.12, 0);
-      setProperty(product, "--basis-top", withBlock, -498.6, 14.62);
-      setProperty(product, "--basis-left", withBlock, -31.56, 80.04);
-      setProperty(product, "--basis-width", withBlock, 414.14, 328.29);
       setProperty(product, "--image-translate-divider", withBlock, 1, 0);
-
-      if (withBlock.getBoundingClientRect().top < innerHeight) {
-        setProperty(product, "--blobs-top", easeBlock, -567.26, 14.62);
-        setProperty(product, "--blobs-right", easeBlock, -34.54, 80.04);
-        setProperty(product, "--blobs-width", easeBlock, 318.04, 328.29);
-        setProperty(product, "--blobs-rotate", easeBlock, -18.47, 0);
-      }
 
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(product, "--item-translate-x-left", compoundBlock, 0, -166.81);
@@ -3586,17 +3572,6 @@ function initCustomScroll() {
         setProperty(product, "--image-left", feedbackBlock, -290, -40);
       }
     } else {
-      setProperty(product, "--spoon-top", withBlock, -446.57, 13.92);
-      setProperty(product, "--spoon-left", withBlock, 101.22, 81.02);
-      setProperty(product, "--spoon-rotate", withBlock, 13.32, 0);
-      setProperty(product, "--basis-top", withBlock, -466.51, 13.92);
-      setProperty(product, "--basis-left", withBlock, -4.14, 81.02);
-      setProperty(product, "--basis-width", withBlock, 388.55, 296.15);
-      setProperty(product, "--blobs-top", withBlock, -496.08, 13.92);
-      setProperty(product, "--blobs-right", withBlock, -138.05, 81.02);
-      setProperty(product, "--blobs-width", withBlock, 332.29, 296.15);
-      setProperty(product, "--blobs-rotate", withBlock, -12.75, 0);
-
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(product, "--item-translate-x-left", compoundBlock, 0, -103.41);
         setProperty(product, "--item-top-left", compoundBlock, 0, 114.81);
@@ -3791,7 +3766,7 @@ function initCustomScroll() {
 function setProperty(element, property, observer, start, end) {
   const { top, bottom } = observer?.getBoundingClientRect();
 
-  if (top < innerHeight && bottom > 0) element?.style.setProperty(property, calcValueRange(start, end, (innerHeight - top) / innerHeight));
+  if (top < innerHeight * 2 && bottom > -innerHeight) element?.style.setProperty(property, calcValueRange(start, end, (innerHeight - top) / innerHeight));
 }
 
 /**
