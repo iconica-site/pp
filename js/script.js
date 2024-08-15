@@ -3561,7 +3561,7 @@ function initCustomScroll() {
     }
 
     if (MIN_993_PX.matches) {
-      setProperty(product, "--cap-top", compoundBlock, 0, responsiveValue(-372.64 - 104.49, -279.74 - 78.37, 1920, 1440, "fixed-end-value"));
+      setProperty(product, "--cap-top", compoundBlock, 0, -372.64);
       setProperty(product, "--image-translate-divider", withBlock, 1, 0);
 
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
