@@ -3284,9 +3284,9 @@ const bee = document.querySelector(".bee");
 
 function initCustomScroll() {
   const compoundBlockTextsMaxHeight = Math.max(...[...compoundBlockTexts].map((text) => text.scrollHeight));
-  const productHeight = innerHeight - (parseFloat(getComputedStyle(compoundBlockInner).insetBlockStart) + compoundBlockTextsMaxHeight + responsiveValue(35, 26, 1920, 1440, "fixed-end-value") * 2);
+  const productHeight = innerHeight - (parseFloat(getComputedStyle(compoundBlockInner).insetBlockStart) + compoundBlockTextsMaxHeight + responsiveValue(35.06, 26.04, 1920, 1440, "fixed-end-value") + responsiveValue(65.44, 49.08, 1920, 1440, "fixed-end-value"));
   const productWidth = 500 * productHeight / 615;
-  const productBottom = innerHeight - (parseFloat(getComputedStyle(compoundBlockInner).insetBlockStart) + compoundBlockTextsMaxHeight + responsiveValue(366, 183, 720, 360, "not-fixed") * 450.43 / 366.1 + responsiveValue(80, 40, 720, 360, "not-fixed"));
+  const productBottom = innerHeight - (parseFloat(getComputedStyle(compoundBlockInner).insetBlockStart) + compoundBlockTextsMaxHeight + responsiveValue(366.2, 183.1, 720, 360, "not-fixed") * 450.43 / 366.1 + responsiveValue(80, 40, 720, 360, "not-fixed"));
 
   const withBlockImagesWrapperBottom = parseFloat(getComputedStyle(withBlockImagesWrapper).insetBlockEnd);
   const withBlockImagesWrapperWidth = parseFloat(getComputedStyle(withBlockImagesWrapper).inlineSize);
@@ -3308,12 +3308,26 @@ function initCustomScroll() {
   feedbackForm.style.setProperty("--bottom", feedbackButtonBottom);
 
   if (MIN_993_PX.matches) {
+    product.style.setProperty("--view-width", 50);
+    product.style.setProperty("--translate-x", responsiveValue(409, 306, 1920, 1440, "fixed-end-value"));
+    product.style.setProperty("--wrapper-translate-x", 0);
+    product.style.setProperty("--translate-y", responsiveValue(-183, -137.25, 1920, 1440, "fixed-end-value"));
+    product.style.setProperty("--scale", responsiveValue(143, 108, 1920, 1440, "fixed-end-value") / 500);
+    product.style.setProperty("--rotate", -17.49);
+
     bee.style.setProperty("--bottom", responsiveValue(83, 62, 1920, 1440, "fixed-end-value"));
     bee.style.setProperty("--left", responsiveValue(714, 525, 1920, 1440, "fixed-end-value"));
     bee.style.setProperty("--width", responsiveValue(60.45, 45.33, 1920, 1440, "fixed-end-value"));
     bee.style.setProperty("--rotate-y", 0);
     bee.style.setProperty("--rotate-z", 0);
   } else {
+    product.style.setProperty("--view-width", 50);
+    product.style.setProperty("--translate-x", responsiveValue(197, 97, 720, 360, "not-fixed"));
+    product.style.setProperty("--wrapper-translate-x", 0);
+    product.style.setProperty("--translate-y", responsiveValue(-196, -97, 720, 360, "not-fixed"));
+    product.style.setProperty("--scale", responsiveValue(118, 60, 720, 360, "not-fixed") / 500);
+    product.style.setProperty("--rotate", -17.49);
+
     bee.style.setProperty("--top", responsiveValue(-83, -62, 720, 360, "not-fixed"));
     bee.style.setProperty("--left", responsiveValue(264, 127, 720, 360, "not-fixed"));
     bee.style.setProperty("--width", responsiveValue(49.89, 24.94, 720, 360, "not-fixed"));
@@ -3338,7 +3352,6 @@ function initCustomScroll() {
 
   locomotive.on("scroll", (event) => {
     const { scroll } = event;
-    const { y } = scroll;
 
     wrapper.classList.toggle("choice-transition", choiceBlock.getBoundingClientRect().top <= 0 && choiceBlock.getBoundingClientRect().bottom >= innerHeight);
     wrapper.classList.toggle("compound-transition", compoundBlock.getBoundingClientRect().top <= 0 && compoundBlock.getBoundingClientRect().bottom >= innerHeight);
@@ -3548,6 +3561,7 @@ function initCustomScroll() {
     }
 
     if (MIN_993_PX.matches) {
+      setProperty(product, "--cap-top", compoundBlock, 0, responsiveValue(-372.64 - 104.49, -279.74 - 78.37, 1920, 1440, "fixed-end-value"));
       setProperty(product, "--image-translate-divider", withBlock, 1, 0);
 
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
@@ -3572,6 +3586,8 @@ function initCustomScroll() {
         setProperty(product, "--image-left", feedbackBlock, -290, -40);
       }
     } else {
+      setProperty(product, "--cap-top", compoundBlock, 0, -467.39);
+
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
         setProperty(product, "--item-translate-x-left", compoundBlock, 0, -103.41);
         setProperty(product, "--item-top-left", compoundBlock, 0, 114.81);
@@ -3589,142 +3605,108 @@ function initCustomScroll() {
       }
     }
 
-    switch (true) {
-      case matchMedia("(min-width: 1440.1px)").matches:
-        if (compoundBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", choiceBlock, responsiveValue(408, 306, 1920, 1440, "fixed-end-value"), responsiveValue(508, 381, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--bottom", choiceBlock, responsiveValue(183, 137, 1920, 1440, "fixed-end-value"), responsiveValue(164, 123, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--width", choiceBlock, responsiveValue(143, 108, 1920, 1440, "fixed-end-value"), responsiveValue(423, 317, 1920, 1440, "fixed-end-value"));
-        } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", compoundBlock, responsiveValue(508, 381, 1920, 1440, "fixed-end-value"), innerWidth / 2);
-          setProperty(product, "--translate-x", compoundBlock, 0, 50);
-          setProperty(product, "--bottom", compoundBlock, responsiveValue(164, 123, 1920, 1440, "fixed-end-value"), responsiveValue(35, 26, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--width", compoundBlock, responsiveValue(423, 317, 1920, 1440, "fixed-end-value"), productWidth);
-          setProperty(product, "--cap-top", compoundBlock, -104.49, -372.64);
-        } else if (withBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", easeBlock, innerWidth / 2, responsiveValue(496, 372, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--translate-x", easeBlock, 50, 0);
-          setProperty(product, "--bottom", easeBlock, responsiveValue(35, 26, 1920, 1440, "fixed-end-value"), responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--width", easeBlock, productWidth, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"));
-        } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", withBlock, responsiveValue(496, 372, 1920, 1440, "fixed-end-value"), innerWidth / 2);
-          setProperty(product, "--translate-x", withBlock, 0, 50);
-          setProperty(product, "--bottom", withBlock, responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperBottom);
-          setProperty(product, "--width", withBlock, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperWidth);
-        } else if (emotions.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--bottom", waitBlock, withBlockImagesWrapperBottom, responsiveValue(133, 100, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--width", waitBlock, withBlockImagesWrapperWidth, responsiveValue(493, 370, 1920, 1440, "fixed-end-value"));
-        } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", emotions, innerWidth / 2, innerWidth / 2 + responsiveValue(222, 166, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--translate-x", emotions, 50, 0);
-          setProperty(product, "--bottom", emotions, responsiveValue(133, 100, 1920, 1440, "fixed-end-value"), responsiveValue(40, 29, 1920, 1440, "fixed-end-value"));
-        } else {
-          setProperty(product, "--inset-inline", feedbackBlock, innerWidth / 2 + responsiveValue(222, 166, 1920, 1440, "fixed-end-value"), feedbackBoxLeft);
-          setProperty(product, "--bottom", feedbackBlock, responsiveValue(40, 29, 1920, 1440, "fixed-end-value"), feedbackBoxBottom);
-          setProperty(product, "--width", feedbackBlock, responsiveValue(493, 370, 1920, 1440, "fixed-end-value"), feedbackBoxWidth);
-        }
-
-        break;
-      case matchMedia("(min-width: 1280.1px)").matches:
-        if (compoundBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", choiceBlock, responsiveValue(306, 224, 1440, 1280, "fixed-both"), responsiveValue(381, 301, 1440, 1280, "fixed-both"));
-          setProperty(product, "--bottom", choiceBlock, responsiveValue(183, 137, 1920, 1440, "fixed-end-value"), responsiveValue(164, 123, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--width", choiceBlock, responsiveValue(143, 108, 1920, 1440, "fixed-end-value"), responsiveValue(423, 317, 1920, 1440, "fixed-end-value"));
-        } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", compoundBlock, responsiveValue(381, 301, 1440, 1280, "fixed-both"), innerWidth / 2);
-          setProperty(product, "--translate-x", compoundBlock, 0, 50);
-          setProperty(product, "--bottom", compoundBlock, responsiveValue(164, 123, 1920, 1440, "fixed-end-value"), responsiveValue(35, 26, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--width", compoundBlock, responsiveValue(423, 317, 1920, 1440, "fixed-end-value"), productWidth);
-          setProperty(product, "--cap-top", compoundBlock, -78.37, -279.74);
-        } else if (withBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", easeBlock, innerWidth / 2, responsiveValue(372, 292, 1440, 1280, "fixed-both"));
-          setProperty(product, "--translate-x", easeBlock, 50, 0);
-          setProperty(product, "--bottom", easeBlock, responsiveValue(35, 26, 1920, 1440, "fixed-end-value"), responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--width", easeBlock, productWidth, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"));
-        } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", withBlock, responsiveValue(372, 292, 1440, 1280, "fixed-both"), innerWidth / 2);
-          setProperty(product, "--translate-x", withBlock, 0, 50);
-          setProperty(product, "--bottom", withBlock, responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperBottom);
-          setProperty(product, "--width", withBlock, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperWidth);
-        } else if (emotions.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--bottom", waitBlock, withBlockImagesWrapperBottom, responsiveValue(133, 100, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--width", waitBlock, withBlockImagesWrapperWidth, responsiveValue(493, 370, 1920, 1440, "fixed-end-value"));
-        } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", emotions, innerWidth / 2, innerWidth / 2 + responsiveValue(222, 166, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--translate-x", emotions, 50, 0);
-          setProperty(product, "--bottom", emotions, responsiveValue(133, 100, 1920, 1440, "fixed-end-value"), responsiveValue(40, 29, 1920, 1440, "fixed-end-value"));
-        } else {
-          setProperty(product, "--inset-inline", feedbackBlock, innerWidth / 2 + responsiveValue(222, 166, 1920, 1440, "fixed-end-value"), feedbackBoxLeft);
-          setProperty(product, "--bottom", feedbackBlock, responsiveValue(40, 29, 1920, 1440, "fixed-end-value"), feedbackBoxBottom);
-          setProperty(product, "--width", feedbackBlock, responsiveValue(493, 370, 1920, 1440, "fixed-end-value"), feedbackBoxWidth);
-        }
-
-        break;
-      case matchMedia("(min-width: 992.1px)").matches:
-        if (compoundBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", choiceBlock, responsiveValue(224, 92, 1280, 1024, "not-fixed"), responsiveValue(301, 173, 1280, 1024, "not-fixed"));
-          setProperty(product, "--bottom", choiceBlock, responsiveValue(183, 137, 1920, 1440, "fixed-end-value"), responsiveValue(164, 123, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--width", choiceBlock, responsiveValue(143, 108, 1920, 1440, "fixed-end-value"), responsiveValue(423, 317, 1920, 1440, "fixed-end-value"));
-        } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", compoundBlock, responsiveValue(301, 173, 1280, 1024, "not-fixed"), innerWidth / 2);
-          setProperty(product, "--translate-x", compoundBlock, 0, 50);
-          setProperty(product, "--bottom", compoundBlock, responsiveValue(164, 123, 1920, 1440, "fixed-end-value"), responsiveValue(35, 26, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--width", compoundBlock, responsiveValue(423, 317, 1920, 1440, "fixed-end-value"), productWidth);
-          setProperty(product, "--cap-top", compoundBlock, -78.37, -279.74);
-        } else if (withBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", easeBlock, innerWidth / 2, responsiveValue(292, 164, 1280, 1024, "not-fixed"));
-          setProperty(product, "--translate-x", easeBlock, 50, 0);
-          setProperty(product, "--bottom", easeBlock, responsiveValue(35, 26, 1920, 1440, "fixed-end-value"), responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--width", easeBlock, productWidth, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"));
-        } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", withBlock, responsiveValue(292, 164, 1280, 1024, "not-fixed"), innerWidth / 2);
-          setProperty(product, "--translate-x", withBlock, 0, 50);
-          setProperty(product, "--bottom", withBlock, responsiveValue(-204, -154, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperBottom);
-          setProperty(product, "--width", withBlock, responsiveValue(488, 366, 1920, 1440, "fixed-end-value"), withBlockImagesWrapperWidth);
-        } else if (emotions.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--bottom", waitBlock, withBlockImagesWrapperBottom, responsiveValue(133, 100, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--width", waitBlock, withBlockImagesWrapperWidth, responsiveValue(493, 370, 1920, 1440, "fixed-end-value"));
-        } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", emotions, innerWidth / 2, innerWidth / 2 + responsiveValue(222, 166, 1920, 1440, "fixed-end-value"));
-          setProperty(product, "--translate-x", emotions, 50, 0);
-          setProperty(product, "--bottom", emotions, responsiveValue(133, 100, 1920, 1440, "fixed-end-value"), responsiveValue(40, 29, 1920, 1440, "fixed-end-value"));
-        } else {
-          setProperty(product, "--inset-inline", feedbackBlock, innerWidth / 2 + responsiveValue(222, 166, 1920, 1440, "fixed-end-value"), feedbackBoxLeft);
-          setProperty(product, "--bottom", feedbackBlock, responsiveValue(40, 29, 1920, 1440, "fixed-end-value"), feedbackBoxBottom);
-          setProperty(product, "--width", feedbackBlock, responsiveValue(493, 370, 1920, 1440, "fixed-end-value"), feedbackBoxWidth);
-        }
-
-        break;
-      default:
-        if (compoundBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", choiceBlock, responsiveValue(45, 23, 720, 360, "not-fixed"), responsiveValue(172, 86, 720, 360, "not-fixed"));
-          setProperty(product, "--bottom", choiceBlock, responsiveValue(195, 96, 720, 360, "not-fixed"), responsiveValue(178, 89, 720, 360, "not-fixed"));
-          setProperty(product, "--width", choiceBlock, responsiveValue(122, 61, 720, 360, "not-fixed"), responsiveValue(366, 183, 720, 360, "not-fixed"));
-        } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", compoundBlock, responsiveValue(172, 86, 720, 360, "not-fixed"), innerWidth / 2);
-          setProperty(product, "--translate-x", compoundBlock, 0, 50);
-          setProperty(product, "--bottom", compoundBlock, responsiveValue(178, 89, 720, 360, "not-fixed"), productBottom);
-          setProperty(product, "--cap-top", compoundBlock, -90.3, -467.39);
-        } else if (withBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", easeBlock, innerWidth / 2, responsiveValue(150, 75, 720, 360, "not-fixed"));
-          setProperty(product, "--translate-x", easeBlock, 50, 0);
-          setProperty(product, "--bottom", easeBlock, productBottom, responsiveValue(-146, -73, 720, 360, "not-fixed"));
-          setProperty(product, "--width", easeBlock, responsiveValue(366, 183, 720, 360, "not-fixed"), responsiveValue(458, 229, 720, 360, "not-fixed"));
-        } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", withBlock, responsiveValue(150, 75, 720, 360, "not-fixed"), responsiveValue(256.23, 128.12, 720, 360, "not-fixed"));
-          setProperty(product, "--bottom", withBlock, responsiveValue(-146, -73, 720, 360, "not-fixed"), withBlockImagesWrapperBottom);
-          setProperty(product, "--width", withBlock, responsiveValue(458, 229, 720, 360, "not-fixed"), withBlockImagesWrapperWidth);
-        } else if (emotions.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--inset-inline", waitBlock, responsiveValue(256.23, 128.12, 720, 360, "not-fixed"), responsiveValue(156.48, 78.24, 720, 360, "not-fixed"));
-          setProperty(product, "--bottom", waitBlock, withBlockImagesWrapperBottom, responsiveValue(604.42, 302.21, 720, 360, "not-fixed"));
-          setProperty(product, "--width", waitBlock, withBlockImagesWrapperWidth, responsiveValue(383, 191, 720, 360, "not-fixed"));
-        } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
-          setProperty(product, "--bottom", emotions, responsiveValue(604, 302, 720, 360, "not-fixed"), responsiveValue(40, 29, 720, 360, "not-fixed"));
-        } else {
-          setProperty(product, "--inset-inline", feedbackBlock, responsiveValue(156.48, 78.24, 720, 360, "not-fixed"), feedbackBoxLeft);
-          setProperty(product, "--bottom", feedbackBlock, responsiveValue(40, 29, 720, 360, "not-fixed"), feedbackBoxBottom);
-          setProperty(product, "--width", feedbackBlock, responsiveValue(383, 191, 720, 360, "not-fixed"), feedbackBoxWidth);
-        }
+    if (MIN_993_PX.matches) {
+      if (compoundBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--view-width", choiceBlock, 50, 50);
+        setProperty(product, "--translate-x", choiceBlock, responsiveValue(409, 306, 1920, 1440, "fixed-end-value"), responsiveValue(41.69, 20.77, 1920, 1440, "fixed-end-value"));
+        setProperty(product, "--wrapper-translate-x", choiceBlock, 0, 0);
+        setProperty(product, "--translate-y", choiceBlock, responsiveValue(-183, -137.25, 1920, 1440, "fixed-end-value"), responsiveValue(-167.37, -125.28, 1920, 1440, "fixed-end-value"));
+        setProperty(product, "--scale", choiceBlock, responsiveValue(143, 108, 1920, 1440, "fixed-end-value") / 500, responsiveValue(423.76, 317.82, 1920, 1440, "fixed-end-value") / 500);
+        setProperty(product, "--rotate", choiceBlock, -17.49, 17.49);
+      } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--view-width", compoundBlock, 50, 50);
+        setProperty(product, "--translate-x", compoundBlock, responsiveValue(41.69, 20.77, 1920, 1440, "fixed-end-value"), 0);
+        setProperty(product, "--wrapper-translate-x", compoundBlock, 0, -50);
+        setProperty(product, "--translate-y", compoundBlock, responsiveValue(-167.37, -125.28, 1920, 1440, "fixed-end-value"), responsiveValue(-35.06, -26.04, 1920, 1440, "fixed-end-value"));
+        setProperty(product, "--scale", compoundBlock, responsiveValue(423.76, 317.82, 1920, 1440, "fixed-end-value") / 500, productWidth / 500);
+        setProperty(product, "--rotate", compoundBlock, 17.49, 0);
+      } else if (withBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--view-width", easeBlock, 50, 50);
+        setProperty(product, "--translate-x", easeBlock, 0, 0);
+        setProperty(product, "--wrapper-translate-x", easeBlock, -50, (38.6 - 488.37) / 488.37 * 100);
+        setProperty(product, "--translate-y", easeBlock, responsiveValue(-35.06, -26.04, 1920, 1440, "fixed-end-value"), responsiveValue(204.83, 153.87, 1920, 1440, "fixed-end-value"));
+        setProperty(product, "--scale", easeBlock, productWidth / 500, responsiveValue(488.37, 366.28, 1920, 1440, "fixed-end-value") / 500);
+        setProperty(product, "--rotate", easeBlock, 0, -15);
+      } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--view-width", withBlock, 50, 50);
+        setProperty(product, "--translate-x", withBlock, 0, 0);
+        setProperty(product, "--wrapper-translate-x", withBlock, (38.6 - 488.37) / 488.37 * 100, -50);
+        setProperty(product, "--translate-y", withBlock, responsiveValue(204.83, 153.87, 1920, 1440, "fixed-end-value"), -withBlockImagesWrapperBottom);
+        setProperty(product, "--scale", withBlock, responsiveValue(488.37, 366.28, 1920, 1440, "fixed-end-value") / 500, withBlockImagesWrapperWidth / 500);
+        setProperty(product, "--rotate", withBlock, -15, 0);
+      } else if (emotions.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--view-width", waitBlock, 50, 50);
+        setProperty(product, "--translate-x", waitBlock, 0, 0);
+        setProperty(product, "--wrapper-translate-x", waitBlock, -50, -50);
+        setProperty(product, "--translate-y", waitBlock, -withBlockImagesWrapperBottom, responsiveValue(-133.94, -100.21, 1920, 1440, "fixed-end-value"));
+        setProperty(product, "--scale", waitBlock, withBlockImagesWrapperWidth / 500, responsiveValue(493.53, 370.15, 1920, 1440, "fixed-end-value") / 500);
+        setProperty(product, "--rotate", waitBlock, 0, -16.59);
+      } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--view-width", emotions, 50, 50);
+        setProperty(product, "--translate-x", emotions, 0, responsiveValue(222.2, 166.65, 1920, 1440, "fixed-end-value"));
+        setProperty(product, "--wrapper-translate-x", emotions, -50, 0);
+        setProperty(product, "--translate-y", emotions, responsiveValue(-133.94, -100.21, 1920, 1440, "fixed-end-value"), responsiveValue(-40.2, -29.9, 1920, 1440, "fixed-end-value"));
+        setProperty(product, "--scale", emotions, responsiveValue(493.53, 370.15, 1920, 1440, "fixed-end-value") / 500, responsiveValue(493.53, 370.15, 1920, 1440, "fixed-end-value") / 500);
+        setProperty(product, "--rotate", emotions, -16.59, 26.93);
+      } else {
+        setProperty(product, "--view-width", feedbackBlock, 50, 50);
+        setProperty(product, "--translate-x", feedbackBlock, responsiveValue(222.2, 166.65, 1920, 1440, "fixed-end-value"), feedbackBoxLeft - innerWidth / 2);
+        setProperty(product, "--wrapper-translate-x", feedbackBlock, 0, 0);
+        setProperty(product, "--translate-y", feedbackBlock, responsiveValue(-40.2, -29.9, 1920, 1440, "fixed-end-value"), -feedbackBoxBottom);
+        setProperty(product, "--scale", feedbackBlock, responsiveValue(493.53, 370.15, 1920, 1440, "fixed-end-value") / 500, feedbackBoxWidth / 500);
+        setProperty(product, "--rotate", feedbackBlock, 26.93, 0);
+      }
+    } else {
+      if (compoundBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--view-width", choiceBlock, 50, 50);
+        setProperty(product, "--translate-x", choiceBlock, responsiveValue(197, 97, 720, 360, "not-fixed"), 0);
+        setProperty(product, "--wrapper-translate-x", choiceBlock, 0, -50);
+        setProperty(product, "--translate-y", choiceBlock, responsiveValue(-196, -97, 720, 360, "not-fixed"), responsiveValue(-180.56, -90.28, 720, 360, "not-fixed"));
+        setProperty(product, "--scale", choiceBlock, responsiveValue(118, 60, 720, 360, "not-fixed") / 500, responsiveValue(366.2, 183.1, 720, 360, "not-fixed") / 500);
+        setProperty(product, "--rotate", choiceBlock, -17.49, 17.49);
+      } else if (easeBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--view-width", compoundBlock, 50, 50);
+        setProperty(product, "--translate-x", compoundBlock, 0, 0);
+        setProperty(product, "--wrapper-translate-x", compoundBlock, -50, -50);
+        setProperty(product, "--translate-y", compoundBlock, responsiveValue(-180.56, -90.28, 720, 360, "not-fixed"), -productBottom);
+        setProperty(product, "--scale", compoundBlock, responsiveValue(366.2, 183.1, 720, 360, "not-fixed") / 500, responsiveValue(366.2, 183.1, 720, 360, "not-fixed") / 500);
+        setProperty(product, "--rotate", compoundBlock, 17.49, 0);
+      } else if (withBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--view-width", easeBlock, 50, 50);
+        setProperty(product, "--translate-x", easeBlock, 0, 0);
+        setProperty(product, "--wrapper-translate-x", easeBlock, -50, -50);
+        setProperty(product, "--translate-y", easeBlock, -productBottom, responsiveValue(146.42, 73.21, 720, 360, "not-fixed"));
+        setProperty(product, "--scale", easeBlock, responsiveValue(366.2, 183.1, 720, 360, "not-fixed") / 500, responsiveValue(458.19, 229.1, 720, 360, "not-fixed") / 500);
+        setProperty(product, "--rotate", easeBlock, 0, -16.37);
+      } else if (waitBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--view-width", withBlock, 50, 50);
+        setProperty(product, "--translate-x", withBlock, 0, 0);
+        setProperty(product, "--wrapper-translate-x", withBlock, -50, -98.16 / 383.83 * 100);
+        setProperty(product, "--translate-y", withBlock, responsiveValue(146.42, 73.21, 720, 360, "not-fixed"), -withBlockImagesWrapperBottom);
+        setProperty(product, "--scale", withBlock, responsiveValue(458.19, 229.1, 720, 360, "not-fixed") / 500, withBlockImagesWrapperWidth / 500);
+        setProperty(product, "--rotate", withBlock, -16.37, 0);
+      } else if (emotions.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--view-width", waitBlock, 50, 50);
+        setProperty(product, "--translate-x", waitBlock, 0, 0);
+        setProperty(product, "--wrapper-translate-x", waitBlock, -98.16 / 383.83 * 100, -50);
+        setProperty(product, "--translate-y", waitBlock, -withBlockImagesWrapperBottom, responsiveValue(-604.42, -302.21, 720, 360, "not-fixed"));
+        setProperty(product, "--scale", waitBlock, withBlockImagesWrapperWidth / 500, responsiveValue(383.83, 191.91, 720, 360, "not-fixed") / 500);
+        setProperty(product, "--rotate", waitBlock, 0, -12.72);
+      } else if (feedbackBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--view-width", emotions, 50, 50);
+        setProperty(product, "--translate-x", emotions, 0, 0);
+        setProperty(product, "--wrapper-translate-x", emotions, -50, -50);
+        setProperty(product, "--translate-y", emotions, responsiveValue(-604.42, -302.21, 720, 360, "not-fixed"), responsiveValue(-65.28, -32.64, 720, 360, "not-fixed"));
+        setProperty(product, "--scale", emotions, responsiveValue(383.83, 191.91, 720, 360, "not-fixed") / 500, responsiveValue(383.83, 191.91, 720, 360, "not-fixed") / 500);
+        setProperty(product, "--rotate", emotions, -12.72, 12.72);
+      } else {
+        setProperty(product, "--view-width", feedbackBlock, 50, 50);
+        setProperty(product, "--translate-x", feedbackBlock, 0, feedbackBoxLeft - innerWidth / 2);
+        setProperty(product, "--wrapper-translate-x", feedbackBlock, -50, 0);
+        setProperty(product, "--translate-y", feedbackBlock, responsiveValue(-65.28, -32.64, 720, 360, "not-fixed"), -feedbackBoxBottom);
+        setProperty(product, "--scale", feedbackBlock, responsiveValue(383.83, 191.91, 720, 360, "not-fixed") / 500, feedbackBoxWidth / 500);
+        setProperty(product, "--rotate", feedbackBlock, 12.72, 0);
+      }
     }
   });
 
@@ -3792,15 +3774,28 @@ function calcValueRange(start, end, progress) {
 function responsiveValue(startValue, endValue, startBreakpoint, endBreakpoint, behavior) {
   const calc = endValue + (startValue - endValue) * ((innerWidth - endBreakpoint) / (startBreakpoint - endBreakpoint));
 
-  switch (behavior) {
-    case "not-fixed":
-      return calc;
-    case "fixed-both":
-      return Math.min(Math.max(calc, startValue), endValue);
-    case "fixed-start-value":
-      return Math.min(calc, startValue);
-    case "fixed-end-value":
-      return Math.max(calc, endValue);
+  if (startValue > endValue) {
+    switch (behavior) {
+      case "not-fixed":
+        return calc;
+      case "fixed-both":
+        return Math.min(Math.max(calc, endValue), startValue);
+      case "fixed-start-value":
+        return Math.min(calc, startValue);
+      case "fixed-end-value":
+        return Math.max(calc, endValue);
+    }
+  } else {
+    switch (behavior) {
+      case "not-fixed":
+        return calc;
+      case "fixed-both":
+        return Math.min(Math.max(calc, startValue), endValue);
+      case "fixed-start-value":
+        return Math.max(calc, startValue);
+      case "fixed-end-value":
+        return Math.min(calc, endValue);
+    }
   }
 }
 
