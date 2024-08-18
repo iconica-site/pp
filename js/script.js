@@ -3355,7 +3355,6 @@ function initCustomScroll() {
 
     wrapper.classList.toggle("choice-transition", choiceBlock.getBoundingClientRect().top <= 0 && choiceBlock.getBoundingClientRect().bottom >= innerHeight);
     wrapper.classList.toggle("compound-transition", compoundBlock.getBoundingClientRect().top <= 0 && compoundBlock.getBoundingClientRect().bottom >= innerHeight);
-    wrapper.classList.toggle("product-transition", compoundBlock.getBoundingClientRect().top <= 250 && compoundBlock.getBoundingClientRect().bottom >= innerHeight - 250);
     wrapper.classList.toggle("ease-transition", easeBlock.getBoundingClientRect().top <= 0 && easeBlock.getBoundingClientRect().bottom >= innerHeight);
     wrapper.classList.toggle("with-transition", easeBlock.getBoundingClientRect().bottom < innerHeight);
     wrapper.classList.toggle("wait-transition", waitBlock.getBoundingClientRect().top <= 0);
@@ -3491,6 +3490,14 @@ function initCustomScroll() {
       }
     }
 
+    if (easeBlock.getBoundingClientRect().top > innerHeight) {
+      setProperty(product, "--product-rotate", compoundBlock, 0, 15);
+      setProperty(product, "--product-opacity", compoundBlock, 0, 1);
+    } else {
+      setProperty(product, "--product-rotate", easeBlock, 15, 0);
+      setProperty(product, "--product-opacity", easeBlock, 1, 0);
+    }
+
     if (withBlock.getBoundingClientRect().top > innerHeight) {
       setProperty(product, "--translate-divider", easeBlock, 0, 1);
     } else {
@@ -3565,6 +3572,11 @@ function initCustomScroll() {
       setProperty(product, "--image-translate-divider", withBlock, 1, 0);
 
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--product-width", compoundBlock, 423.76, 264.67);
+        setProperty(product, "--product-translate-left", compoundBlock, 0, -166.81);
+        setProperty(product, "--product-translate-right", compoundBlock, 0, 333.06);
+        setProperty(product, "--product-top-left", compoundBlock, 0, 77.58);
+        setProperty(product, "--product-top-right", compoundBlock, 0, 84.6);
         setProperty(product, "--item-translate-x-left", compoundBlock, 0, -166.81);
         setProperty(product, "--item-top-left", compoundBlock, 0, 77.86);
         setProperty(product, "--item-bottom-left", compoundBlock, 0, 117.82);
@@ -3572,6 +3584,11 @@ function initCustomScroll() {
         setProperty(product, "--item-top-right", compoundBlock, 0, 72.26);
         setProperty(product, "--item-bottom-right", compoundBlock, 0, 119.42);
       } else {
+        setProperty(product, "--product-width", easeBlock, 264.67, 423.76);
+        setProperty(product, "--product-translate-left", easeBlock, -166.81, 0);
+        setProperty(product, "--product-translate-right", easeBlock, 333.06, 0);
+        setProperty(product, "--product-top-left", easeBlock, 77.58, 0);
+        setProperty(product, "--product-top-right", easeBlock, 84.6, 0);
         setProperty(product, "--item-translate-x-left", easeBlock, -166.81, 0);
         setProperty(product, "--item-top-left", easeBlock, 77.86, 0);
         setProperty(product, "--item-bottom-left", easeBlock, 117.82, 0);
@@ -3589,6 +3606,11 @@ function initCustomScroll() {
       setProperty(product, "--cap-top", compoundBlock, 0, -467.39);
 
       if (easeBlock.getBoundingClientRect().top > innerHeight) {
+        setProperty(product, "--product-width", compoundBlock, 366.2, 210.49);
+        setProperty(product, "--product-translate-left", compoundBlock, 0, -103.41);
+        setProperty(product, "--product-translate-right", compoundBlock, 0, 253.01);
+        setProperty(product, "--product-top-left", compoundBlock, 0, 114.81);
+        setProperty(product, "--product-top-right", compoundBlock, 0, 113.55);
         setProperty(product, "--item-translate-x-left", compoundBlock, 0, -103.41);
         setProperty(product, "--item-top-left", compoundBlock, 0, 114.81);
         setProperty(product, "--item-bottom-left", compoundBlock, 0, 79.5);
@@ -3596,6 +3618,11 @@ function initCustomScroll() {
         setProperty(product, "--item-top-right", compoundBlock, 0, 113.55);
         setProperty(product, "--item-bottom-right", compoundBlock, 0, 80.76);
       } else {
+        setProperty(product, "--product-width", easeBlock, 210.49, 366.2);
+        setProperty(product, "--product-translate-left", easeBlock, -103.41, 0);
+        setProperty(product, "--product-translate-right", easeBlock, 253.01, 0);
+        setProperty(product, "--product-top-left", easeBlock, 114.81, 0);
+        setProperty(product, "--product-top-right", easeBlock, 113.55, 0);
         setProperty(product, "--item-translate-x-left", easeBlock, -103.41, 0);
         setProperty(product, "--item-top-left", easeBlock, 114.81, 0);
         setProperty(product, "--item-bottom-left", easeBlock, 79.5, 0);
