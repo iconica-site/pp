@@ -3382,7 +3382,7 @@ function initCustomScroll() {
     setProperty(product, "--foil-image-scale-x", easeBlock, 1, 0.25);
     setProperty(product, "--foil-rotate", easeBlock, 0, 45);
     setProperty(product, "--foil-inner-opacity", easeBlock, 1, 0);
-    setProperty(product, "--open-top", easeBlock, 18, -184);
+    setProperty(product, "--open-top", easeBlock, 0, 15);
     setProperty(product, "--open-left", easeBlock, 0, 97);
     setProperty(product, "--open-width", easeBlock, 0, 400);
 
